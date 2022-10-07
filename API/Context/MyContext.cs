@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,13 @@ namespace API.Context
         {
 
         }
-        //public DbSet<Divisi> Divisi { get; set; } 
+        public DbSet<Role> Role { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<Karyawan> Karyawan { get; set; }
+        public DbSet<Barang> Barang { get; set; }
+        public DbSet<RiwayatPengadaan> RiwayatPengadaan { get; set; }
+        public DbSet<RiwayatPeminjaman> RiwayatPeminjaman { get; set; }
+        public DbSet<RiwayatPerbaikan> RiwayatPerbaikan { get; set; }
     }
 }
