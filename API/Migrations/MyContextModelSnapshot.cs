@@ -117,8 +117,8 @@ namespace API.Migrations
                     b.Property<string>("Supplier")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tanggal")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Tanggal")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

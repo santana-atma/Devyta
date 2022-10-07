@@ -54,7 +54,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(RiwayatPengadaan pengadaan)
         {
             var result = pengadaanRepository.Put(pengadaan);
@@ -69,7 +69,7 @@ namespace API.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(RiwayatPengadaan pengadaan)
         {
             var result = pengadaanRepository.Delete(pengadaan.Id);

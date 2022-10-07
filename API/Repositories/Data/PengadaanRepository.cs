@@ -97,8 +97,8 @@ namespace API.Repositories.Data
                 {
                     var barang = myContext.Barang.FirstOrDefault(x => x.Id == data.Barang_Id);
                     data.Tanggal = pengadaan.Tanggal;
-                    data.Jumlah = pengadaan.Jumlah;
                     barang.Stok = barang.Stok -data.Jumlah + pengadaan.Jumlah;
+                    data.Jumlah = pengadaan.Jumlah;
                     data.Supplier = pengadaan.Supplier;
                     myContext.Barang.Update(barang);
                     myContext.SaveChanges();

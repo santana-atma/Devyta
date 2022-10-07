@@ -58,7 +58,7 @@ namespace API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Barang_Id = table.Column<int>(nullable: false),
-                    Tanggal = table.Column<string>(nullable: true),
+                    Tanggal = table.Column<DateTime>(nullable: false),
                     Jumlah = table.Column<int>(nullable: false),
                     Harga = table.Column<double>(nullable: false),
                     Supplier = table.Column<string>(nullable: true)

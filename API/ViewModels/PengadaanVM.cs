@@ -9,7 +9,7 @@ namespace API.ViewModels
     {
         public int PetugasId { get; set; }
         public string Nama { get; set; }
-        public string Tanggal { get; set; }
+        public DateTime Tanggal { get; set; }
         public string Supplier { get; set; }
         public string Satuan { get; set; }
         public int Jumlah { get; set; }
