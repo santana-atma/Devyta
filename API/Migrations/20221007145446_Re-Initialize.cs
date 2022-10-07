@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class Initial : Migration
+    public partial class ReInitialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,7 @@ namespace API.Migrations
                     Barang_Id = table.Column<int>(nullable: false),
                     Tanggal = table.Column<string>(nullable: true),
                     Jumlah = table.Column<int>(nullable: false),
+                    Harga = table.Column<double>(nullable: false),
                     Supplier = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

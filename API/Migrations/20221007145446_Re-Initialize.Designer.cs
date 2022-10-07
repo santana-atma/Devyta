@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221007132258_Initial")]
-    partial class Initial
+    [Migration("20221007145446_Re-Initialize")]
+    partial class ReInitialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,6 +109,9 @@ namespace API.Migrations
 
                     b.Property<int>("Barang_Id")
                         .HasColumnType("int");
+
+                    b.Property<double>("Harga")
+                        .HasColumnType("float");
 
                     b.Property<int>("Jumlah")
                         .HasColumnType("int");

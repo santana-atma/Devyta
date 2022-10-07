@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\**" />
-    <Content Remove="Repositories\**" />
-    <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Repositories\**" />
+    <Compile Remove="Migrations\20221007132258_Initial.cs" />
+    <Compile Remove="Migrations\20221007132258_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +19,10 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

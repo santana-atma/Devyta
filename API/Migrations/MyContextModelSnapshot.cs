@@ -108,6 +108,9 @@ namespace API.Migrations
                     b.Property<int>("Barang_Id")
                         .HasColumnType("int");
 
+                    b.Property<double>("Harga")
+                        .HasColumnType("float");
+
                     b.Property<int>("Jumlah")
                         .HasColumnType("int");
 
