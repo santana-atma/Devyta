@@ -16,6 +16,10 @@ namespace API.Controllers
     {
         PeminjamanRepository peminjamanRepository;
 
+        public PeminjamanController(PeminjamanRepository peminjamanRepository)
+        {
+            this.peminjamanRepository = peminjamanRepository;
+        }
 
         //READ
         [HttpGet]
@@ -26,11 +30,11 @@ namespace API.Controllers
 
             if (data != null)
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = data });
+                return Ok(new { message = "Sukses get", statusCode = 200, data = data });
             }
             else
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = "null" });
+                return Ok(new { message = "Sukses get", statusCode = 200, data = "null" });
             }
         }
 
@@ -41,11 +45,11 @@ namespace API.Controllers
 
             if (data != null)
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = data });
+                return Ok(new { message = "Sukses get", statusCode = 200, data = data });
             }
             else
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = "null" });
+                return Ok(new { message = "Sukses get", statusCode = 200, data = "null" });
             }
 
         }
@@ -57,27 +61,27 @@ namespace API.Controllers
             var result = peminjamanRepository.Post(peminjaman);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses pinjam barang, Tabel Barang & Rowayat Peminjaman telah diperbarui", statusCode = 200 });
+                return Ok(new { message = "Sukses input peminjaman barang", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal tambah pinjam barang", statusCode = 400 });
+                return BadRequest(new { message = "Gagal peminjaman barang", statusCode = 400 });
             }
 
         }
 
         //UPDATE
         [HttpPut("{id}")]
-        public IActionResult Put(int Id, Peminjaman peminjaman)
+        public IActionResult Put(int id, Peminjaman peminjaman)
         {
-            var result = peminjamanRepository.Put(Id, peminjaman);
+            var result = peminjamanRepository.Put(id, peminjaman);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses ubah data", statusCode = 200 });
+                return Ok(new { message = "Sukses ubah data peminjaman", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal ubah data", statusCode = 400 });
+                return BadRequest(new { message = "Gagal ubah data peminjaman", statusCode = 400 });
             }
 
         }
@@ -90,11 +94,11 @@ namespace API.Controllers
             var result = peminjamanRepository.Delete(id);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses hapus data", statusCode = 200 });
+                return Ok(new { message = "Sukses hapus data peminjaman", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal hapus data", statusCode = 400 });
+                return BadRequest(new { message = "Gagal hapus data peminjaman", statusCode = 400 });
             }
 
         }

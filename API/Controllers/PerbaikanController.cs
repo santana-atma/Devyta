@@ -16,6 +16,11 @@ namespace API.Controllers
     {
         PerbaikanRepository perbaikanRepository;
 
+        public PerbaikanController(PerbaikanRepository perbaikanRepository)
+        {
+            this.perbaikanRepository = perbaikanRepository;
+        }
+
         //READ
         [HttpGet]
         public IActionResult Get()
@@ -25,11 +30,11 @@ namespace API.Controllers
 
             if (data != null)
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = data });
+                return Ok(new { message = "Sukses get perbaikan", statusCode = 200, data = data });
             }
             else
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = "null" });
+                return Ok(new { message = "Sukses get perbaikan", statusCode = 200, data = "null" });
             }
         }
 
@@ -40,11 +45,11 @@ namespace API.Controllers
 
             if (data != null)
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = data });
+                return Ok(new { message = "Sukses get perbaikan", statusCode = 200, data = data });
             }
             else
             {
-                return Ok(new { message = "Sukses", statusCode = 200, data = "null" });
+                return Ok(new { message = "Sukses get perbaikan", statusCode = 200, data = "null" });
             }
 
         }
@@ -55,11 +60,11 @@ namespace API.Controllers
             var result = perbaikanRepository.Post(perbaikan);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses pinjam barang, Tabel Barang & Rowayat Peminjaman telah diperbarui", statusCode = 200 });
+                return Ok(new { message = "Sukses input perbaikan barang", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal tambah pinjam barang", statusCode = 400 });
+                return BadRequest(new { message = "Gagal input perbaikan barang", statusCode = 400 });
             }
 
         }
@@ -67,16 +72,16 @@ namespace API.Controllers
 
         //UPDATE
         [HttpPut("{id}")]
-        public IActionResult Put(int Id, Perbaikan perbaikan)
+        public IActionResult Put(int id, Perbaikan perbaikan)
         {
-            var result = perbaikanRepository.Put(Id, perbaikan);
+            var result = perbaikanRepository.Put(id, perbaikan);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses ubah data", statusCode = 200 });
+                return Ok(new { message = "Sukses ubah data perbaikan", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal ubah data", statusCode = 400 });
+                return BadRequest(new { message = "Gagal ubah perbaikan", statusCode = 400 });
             }
 
         }
@@ -89,11 +94,11 @@ namespace API.Controllers
             var result = perbaikanRepository.Delete(id);
             if (result > 0)
             {
-                return Ok(new { message = "Sukses hapus data", statusCode = 200 });
+                return Ok(new { message = "Sukses hapus data perbaikan", statusCode = 200 });
             }
             else
             {
-                return BadRequest(new { message = "Gagal hapus data", statusCode = 400 });
+                return BadRequest(new { message = "Gagal hapus data perbaikan", statusCode = 400 });
             }
 
         }
