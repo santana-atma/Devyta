@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Repositories.Data;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,8 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
+
     public class RiwayatPengadaanController : ControllerBase
     {
         PengadaanRepository pengadaanRepository;
@@ -24,7 +27,7 @@ namespace API.Controllers
 
         // GET: api/RiwayatPengadaan
         [HttpGet]
-        public IActionResult GetRiwayatPengadaan()
+        public IActionResult Get()
         {
             var data = pengadaanRepository.Get();
             return Ok(new { statusCode = 200, message = "List semua riwayat pengadaan aset", data = data });
@@ -32,7 +35,7 @@ namespace API.Controllers
 
         // GET: api/RiwayatPengadaan/5
         [HttpGet("{id}")]
-        public IActionResult GetRiwayatPengadaan(int id)
+        public IActionResult Get(int id)
         {
             var data = pengadaanRepository.Get(id);
             if (data != null)
@@ -55,9 +58,9 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(RiwayatPengadaan pengadaan)
+        public IActionResult Put(int id,PengadaanVM pengadaan)
         {
-            var result = pengadaanRepository.Put(pengadaan);
+            var result = pengadaanRepository.Put(id, pengadaan);
             if (result > 0)
             {
                 return Ok(new { message = "Sukses perbarui data", statusCode = 200 });
