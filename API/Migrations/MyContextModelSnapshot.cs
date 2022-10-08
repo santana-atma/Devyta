@@ -108,14 +108,17 @@ namespace API.Migrations
                     b.Property<int>("Barang_Id")
                         .HasColumnType("int");
 
+                    b.Property<double>("Harga")
+                        .HasColumnType("float");
+
                     b.Property<int>("Jumlah")
                         .HasColumnType("int");
 
                     b.Property<string>("Supplier")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tanggal")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Tanggal")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
