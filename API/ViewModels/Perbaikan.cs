@@ -8,6 +8,7 @@ namespace API.ViewModels
     public class Perbaikan
     {
         public int Barang_Id { get; set; }
+        public int Karyawan_Id { get; set; }
         public string Keterangan { get; set; }
         public double Biaya { get; set; }
         public int Jumlah { get; set; }
