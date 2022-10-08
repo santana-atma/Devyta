@@ -38,6 +38,10 @@ namespace API.Repositories.Data
         public bool Delete(int id)
         {
             var data = myContext.Karyawan.Find(id);
+            if (data == null)
+            {
+                return false;
+            }
             myContext.Remove(data);
             if (myContext.SaveChanges() > 0)
             {
