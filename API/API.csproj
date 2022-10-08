@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
@@ -20,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Repositories\Data\" />
     <Folder Include="Repositories\Interface\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 
