@@ -10,7 +10,7 @@ namespace API.ViewModels
         public int Barang_Id { get; set; }
         public int Karyawan_Id { get; set; }
         public DateTime Tanggal_Pinjam { get; set; }
-        public DateTime? Tanggal_Kembali { get; set; }
+        public DateTime Tanggal_Kembali { get; set; }
         public int Jumlah { get; set; }
     }
 }
