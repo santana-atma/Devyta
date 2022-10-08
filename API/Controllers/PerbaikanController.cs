@@ -1,5 +1,6 @@
 ﻿using API.Repositories.Data;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,7 +12,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[EnableCors("AllowOrigin")]
+    [EnableCors("AllowOrigin")]
     public class PerbaikanController : ControllerBase
     {
         PerbaikanRepository perbaikanRepository;

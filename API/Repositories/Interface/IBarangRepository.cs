@@ -12,7 +12,7 @@ namespace API.Repositories.Interface
         List<Barang> Get();
         Barang Get(int id);
         int Post(BarangVM barang);
-        int Put(Barang barang);
+        int Put(int id, BarangVM barang);
 
         int Delete(int id);
     }

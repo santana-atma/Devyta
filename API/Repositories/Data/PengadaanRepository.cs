@@ -86,27 +86,32 @@ namespace API.Repositories.Data
             return result;
         }
 
-        public int Put(RiwayatPengadaan pengadaan)
+        public int Put(int Id,PengadaanVM pengadaan)
         {
             using var transaction = myContext.Database.BeginTransaction();
             var result = 0;
             int id;
             try
             {
-                var data = myContext.RiwayatPengadaan.Find(pengadaan.Id);
-                if (data != null)
+                var data = myContext.UserRole.Where(x => x.Id == pengadaan.PetugasId).FirstOrDefault();
+                if(data != null && data.Role_Id == 1)
                 {
-                    var barang = myContext.Barang.FirstOrDefault(x => x.Id == data.Barang_Id);
-                    data.Tanggal = pengadaan.Tanggal;
-                    barang.Stok = barang.Stok -data.Jumlah + pengadaan.Jumlah;
-                    data.Jumlah = pengadaan.Jumlah;
-                    data.Supplier = pengadaan.Supplier;
-                    myContext.Barang.Update(barang);
-                    myContext.SaveChanges();
-                    myContext.RiwayatPengadaan.Update(data);
-                    result += myContext.SaveChanges();
-                    transaction.Commit();
-                }
+                    var isExist = myContext.RiwayatPengadaan.Find(Id);
+                    if (isExist != null)
+                    {
+                        var barang = myContext.Barang.FirstOrDefault(x => x.Id == data.Barang_Id);
+                        isExist.Tanggal = pengadaan.Tanggal;
+                        barang.Stok = barang.Stok - isExist.Jumlah + pengadaan.Jumlah;
+                        isExist.Jumlah = pengadaan.Jumlah;
+                        isExist.Harga = pengadaan.Harga;
+                        isExist.Supplier = pengadaan.Supplier;
+                        myContext.Barang.Update(barang);
+                        myContext.SaveChanges();
+                        myContext.RiwayatPengadaan.Update(isExist);
+                        result += myContext.SaveChanges();
+                        transaction.Commit();
+                    }
+                }          
                 else
                 {
                     return 0;

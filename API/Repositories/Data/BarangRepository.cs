@@ -48,9 +48,9 @@ namespace API.Repositories.Data
             return result;
         }
 
-        public int Put(Barang barang)
+        public int Put(int id, BarangVM barang)
         {
-            var data = Get(barang.Id);
+            var data = Get(id);
             if (data == null)
                 return -1;
             data.Nama = barang.Nama;
