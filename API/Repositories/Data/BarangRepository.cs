@@ -24,9 +24,9 @@ namespace API.Repositories.Data
         }
 
         //READ/GET By Id Peminjaman
-        public RiwayatPeminjaman Get(int Barang_Id, int Karyawan_Id)
+        public RiwayatPeminjaman Get(int Id)
         {
-            return _context.RiwayatPeminjaman.Where(x => x.Karyawan_Id == Karyawan_Id && x.Barang_Id == Barang_Id).FirstOrDefault();
+            return _context.RiwayatPeminjaman.Find(Id);
         }
 
 
@@ -84,14 +84,14 @@ namespace API.Repositories.Data
         }
 
         //  UPDATE Peminjaman
-        public int Update(int Barang_Id, int Karyawan_Id, Peminjaman peminjaman)
+        public int Update(int Id, Peminjaman peminjaman)
         {
 
             using var transaction = _context.Database.BeginTransaction();
             var result = 0;
             try
             {
-                var riwayatPeminjaman = _context.RiwayatPeminjaman.Where(x => x.Karyawan_Id == Karyawan_Id && x.Barang_Id == Barang_Id).FirstOrDefault();
+                var riwayatPeminjaman = _context.RiwayatPeminjaman.Find(Id);
                 //Cek apakah ada pinjaman dengan barang_id dan peminjam_id yang sama, jika Not Null maka bisa Update
                 if (riwayatPeminjaman == null)
                 {
@@ -100,17 +100,17 @@ namespace API.Repositories.Data
                 else
                 {
                     //Update barang_id atau karyawan_id
-                    if (Karyawan_Id != peminjaman.Karyawan_Id)
+                    if (riwayatPeminjaman.Karyawan_Id != peminjaman.Karyawan_Id)
                     {
                         riwayatPeminjaman.Karyawan_Id = peminjaman.Karyawan_Id;                            
                     }
 
                     //Jika mengubah barang yg dipinjam, tetapi jumlahnya tetap
-                    if (Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah == peminjaman.Jumlah)
+                    if (riwayatPeminjaman.Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah == peminjaman.Jumlah)
                     {
                         riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
 
-                        var barang = _context.Barang.Find(Barang_Id);
+                        var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
                         //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                         barang.Stok += riwayatPeminjaman.Jumlah;
@@ -123,11 +123,11 @@ namespace API.Repositories.Data
                         result += _context.SaveChanges();
                     }
                     //Jika mengubah barang dan jumlah yg dipinjam
-                    else if (Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
+                    else if (riwayatPeminjaman.Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
                     {
                         riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
 
-                        var barang = _context.Barang.Find(Barang_Id);
+                        var barang = _context.Barang.Find(peminjaman.Barang_Id);
 
                         //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                         barang.Stok += riwayatPeminjaman.Jumlah;
@@ -141,7 +141,7 @@ namespace API.Repositories.Data
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
                         riwayatPeminjaman.Jumlah = peminjaman.Jumlah;
                     }
-                    else if(Barang_Id == peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
+                    else if(peminjaman.Barang_Id == peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
                     {
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
                         riwayatPeminjaman.Jumlah = peminjaman.Jumlah;
@@ -165,14 +165,14 @@ namespace API.Repositories.Data
         }
         
         //  DELETE Peminjaman
-        public int Delete(int Barang_Id, int Karyawan_Id)
+        public int Delete(int Id)
         {
 
             using var transaction = _context.Database.BeginTransaction();
             var result = 0;
             try
             {
-                var riwayatPeminjaman = _context.RiwayatPeminjaman.Where(x => x.Karyawan_Id == Karyawan_Id && x.Barang_Id == Barang_Id).FirstOrDefault();
+                var riwayatPeminjaman = _context.RiwayatPeminjaman.Find(Id);
                 
                 //Cek apakah ada pinjaman dengan barang_id dan peminjam_id yang sama, jika Not Null maka bisa Update
                 if (riwayatPeminjaman == null)
@@ -181,7 +181,7 @@ namespace API.Repositories.Data
                 }
                 else
                 {
-                    var barang = _context.Barang.Find(Barang_Id);
+                    var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
                     //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                     barang.Stok += riwayatPeminjaman.Jumlah;
@@ -201,8 +201,6 @@ namespace API.Repositories.Data
             }
             return result;
         }
-
-
 
 
 
