@@ -164,8 +164,6 @@
                     </button>
 
                     <!-- Topbar Search -->
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -245,7 +243,7 @@
                         </li>
 
                         <!-- Nav Item - Messages -->
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -285,7 +283,7 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-               @RenderBody();
+                @RenderBody();
                 <!-- /.container-fluid -->
 
             </div>
@@ -346,6 +344,7 @@
     <!-- Page level custom scripts -->
     <script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
     <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>
+    @RenderSection("Scripts", required: false)
 
 </body>
 
