@@ -1,7 +1,6 @@
 ﻿using API.Context;
 using API.Models;
 using API.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace API.Repositories.Data
         //READ/GET All Perbaikan
         public List<RiwayatPerbaikan> Get()
         {
-            return _context.RiwayatPerbaikan.Include(x=>x.Barang).ToList();
+            return _context.RiwayatPerbaikan.ToList();
         }
 
         //READ/GET By Id Perbaikan
@@ -40,31 +39,16 @@ namespace API.Repositories.Data
             var result = 0;
             try
             {
-                var barang = _context.RiwayatPeminjaman.Where(x => x.Barang_Id == perbaikan.Barang_Id && x.Karyawan_Id == perbaikan.Karyawan_Id).FirstOrDefault();
-                //Validasi barang
-                if (barang == null)
-                {
-                    return 0;
-                }
-                else
-                {
-                    
-                    if(perbaikan.Jumlah > barang.Jumlah)
-                    {
-                        return 0;
-                    }
-                }
-
-                //DateTime defaultTglSelesai = DateTime.Parse("0000-00-00");
+                DateTime defaultTglSelesai = DateTime.Parse("0000-00-00");
                 var data = new RiwayatPerbaikan()
                 {
                     Barang_Id = perbaikan.Barang_Id,
                     Keterangan = perbaikan.Keterangan,
-                    Biaya = 0, //dari FrontEnd harus set ke 0 saat create
+                    Biaya = perbaikan.Biaya, //dari FrontEnd harus set ke 0 saat create
                     Jumlah = perbaikan.Jumlah,
                     Status = "DIPERIKSA",
                     Tanggal_Terima = perbaikan.Tanggal_Terima,
-                    Tanggal_Selesai = perbaikan.Tanggal_Selesai
+                    Tanggal_Selesai = perbaikan.Tanggal_Selesai == null ? defaultTglSelesai : perbaikan.Tanggal_Selesai
                 };
                 _context.RiwayatPerbaikan.Add(data);
                 result += _context.SaveChanges();
@@ -87,7 +71,6 @@ namespace API.Repositories.Data
             try
             {
                 var riwayatPerbaikan = _context.RiwayatPerbaikan.Find(Id);
-                var riwayatPeminjaman = _context.RiwayatPeminjaman.Where(x => x.Barang_Id == perbaikan.Barang_Id && x.Karyawan_Id == perbaikan.Karyawan_Id).FirstOrDefault();
                 //Cek apakah ada pinjaman dengan barang_id dan peminjam_id yang sama, jika Not Null maka bisa Update
                 if (riwayatPerbaikan == null)
                 {
@@ -95,10 +78,6 @@ namespace API.Repositories.Data
                 }
                 else
                 {
-                    if (perbaikan.Jumlah > riwayatPeminjaman.Jumlah)
-                    {
-                        return 0;
-                    }
                     riwayatPerbaikan.Barang_Id = perbaikan.Barang_Id;
                     riwayatPerbaikan.Biaya = perbaikan.Biaya;
                     riwayatPerbaikan.Status = perbaikan.Status;
@@ -127,18 +106,23 @@ namespace API.Repositories.Data
             var result = 0;
             try
             {
-                var riwayatPerbaikan = _context.RiwayatPerbaikan.Find(Id);
+                var riwayatPeminjaman = _context.RiwayatPeminjaman.Find(Id);
 
                 //Cek apakah ada pinjaman dengan barang_id dan peminjam_id yang sama, jika Not Null maka bisa Update
-                if (riwayatPerbaikan == null)
+                if (riwayatPeminjaman == null)
                 {
                     return 0;
                 }
                 else
                 {
-                    
+                    var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
-                    _context.RiwayatPerbaikan.Remove(riwayatPerbaikan);
+                    //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
+                    barang.Stok += riwayatPeminjaman.Jumlah;
+                    _context.Barang.Update(barang);
+                    result += _context.SaveChanges();
+
+                    _context.RiwayatPeminjaman.Remove(riwayatPeminjaman);
                     result += _context.SaveChanges();
                     transaction.Commit();
                 }

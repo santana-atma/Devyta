@@ -1,7 +1,6 @@
 ﻿using API.Context;
 using API.Models;
 using API.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace API.Repositories.Data
         //READ/GET All Peminjaman
         public List<RiwayatPeminjaman> Get()
         {
-            return _context.RiwayatPeminjaman.Include(x => x.Barang).Include(x=>x.Karyawan).ToList();
+            return _context.RiwayatPeminjaman.ToList();
         }
 
         //READ/GET By Id Peminjaman
@@ -61,6 +60,7 @@ namespace API.Repositories.Data
 
                     }
 
+                    DateTime defaultTglKembali = DateTime.Parse("0000-00-00");
                     var Peminjaman = new RiwayatPeminjaman()
                     {
                         Barang_Id = peminjaman.Barang_Id,
@@ -68,7 +68,7 @@ namespace API.Repositories.Data
                         Jumlah = peminjaman.Jumlah,
                         Status = "Pinjam",
                         Tanggal_Pinjam = peminjaman.Tanggal_Pinjam,
-                        Tanggal_Kembali = peminjaman.Tanggal_Kembali
+                        Tanggal_Kembali = peminjaman.Tanggal_Kembali == null ? defaultTglKembali : peminjaman.Tanggal_Kembali
                     };
                     _context.RiwayatPeminjaman.Add(Peminjaman);
                     result += _context.SaveChanges();
@@ -147,14 +147,9 @@ namespace API.Repositories.Data
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
                         riwayatPeminjaman.Jumlah = peminjaman.Jumlah;
                     }
-                    
-                    if(peminjaman.Status=="KEMBALI" && peminjaman.Status != riwayatPeminjaman.Status)
-                    {
-                        riwayatPeminjaman.Status = peminjaman.Status;
-                    }
 
                     riwayatPeminjaman.Tanggal_Pinjam = peminjaman.Tanggal_Pinjam;
-                    riwayatPeminjaman.Tanggal_Kembali = peminjaman.Tanggal_Kembali;
+                    riwayatPeminjaman.Tanggal_Kembali = ((DateTime)(peminjaman.Tanggal_Kembali != null ? peminjaman.Tanggal_Kembali : riwayatPeminjaman.Tanggal_Kembali));
 
                     _context.RiwayatPeminjaman.Update(riwayatPeminjaman);
                     result += _context.SaveChanges();
