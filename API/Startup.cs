@@ -57,6 +57,8 @@ namespace API
 
             #region Dependency Injection
             //services.AddScoped<UserRepository>();
+            services.AddScoped<PeminjamanRepository>();
+            services.AddScoped<PerbaikanRepository>();
             services.AddScoped<AccountRepository>();
             services.AddScoped<BarangRepository>();
             services.AddScoped<PengadaanRepository>();
