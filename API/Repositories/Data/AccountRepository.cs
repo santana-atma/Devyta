@@ -117,6 +117,7 @@ namespace API.Repositories.Data
             }
             catch
             {
+                transaction.Rollback();
                 return false;
             }
             return true;
@@ -175,6 +176,7 @@ namespace API.Repositories.Data
             }
             catch
             {
+                transaction.Rollback();
                 return false;
             }
             return true;

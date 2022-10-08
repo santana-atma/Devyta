@@ -66,7 +66,7 @@ namespace API.Controllers
         }
 
 
-        [HttpGet("~/api/karyawan/{id}")]
+        [HttpGet("~/api/karyawan/{id:int}")]
         public IActionResult Get(int id)
         {
             var data = accountRepository.Get();
@@ -81,7 +81,7 @@ namespace API.Controllers
         }
 
 
-        [HttpDelete("~/api/karyawan/{id}")]
+        [HttpDelete("~/api/karyawan/{id:int}")]
         public IActionResult Delete(int id)
         {
             var data = accountRepository.Delete(id);
