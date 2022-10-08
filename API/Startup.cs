@@ -1,4 +1,5 @@
 using API.Context;
+using API.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -56,6 +57,8 @@ namespace API
 
             #region Dependency Injection
             //services.AddScoped<UserRepository>();
+            services.AddScoped<PeminjamanRepository>();
+            services.AddScoped<PerbaikanRepository>();
             #endregion Dependency Injection
 
         }
