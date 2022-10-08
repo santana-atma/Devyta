@@ -92,5 +92,17 @@ namespace API.Controllers
             return BadRequest(new { message = "gagal menghapus akun !", statusCode = 400 });
 
         }
+
+        [HttpPut("~/api/karyawan/")]
+        public IActionResult Put(UpdateAccount updateAccount)
+        {
+            var data = accountRepository.UpdateAccount(updateAccount);
+            if (data)
+            {
+                return Ok(new { message = "sukses mengupdate akun !", statusCode = 201 });
+            }
+            return BadRequest(new { message = "gagal mengupdate akun !", statusCode = 400 });
+
+        }
     }
 }

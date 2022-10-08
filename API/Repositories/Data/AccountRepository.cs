@@ -148,20 +148,33 @@ namespace API.Repositories.Data
             return true;
         }
 
-        //public bool UpdateAccount(UpdateAccount updateAccount)
-        //{
-        //    var transaction = myContext.Database.BeginTransaction();
-        //    try
-        //    {
-                
-        //        transaction.Commit();
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        public bool UpdateAccount(UpdateAccount updateAccount)
+        {
+            var transaction = myContext.Database.BeginTransaction();
+            try
+            {
+                var dataKaryawan = myContext.Karyawan.Find(updateAccount.Id);
+                if (dataKaryawan == null)
+                {
+                    return false;
+                }
+                dataKaryawan.Fullname = updateAccount.Fullname;
+                dataKaryawan.Alamat = updateAccount.Alamat;
+                dataKaryawan.Telp = updateAccount.Telp;
+                myContext.Karyawan.Update(dataKaryawan);
+                myContext.SaveChanges();
+                var dataRole = myContext.UserRole.Find(dataKaryawan.Id);
+                dataRole.Role_Id = updateAccount.Role;
+                myContext.UserRole.Update(dataRole);
+                myContext.SaveChanges();
+                transaction.Commit();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
 
 
 
