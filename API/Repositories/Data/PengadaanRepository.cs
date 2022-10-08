@@ -49,7 +49,8 @@ namespace API.Repositories.Data
             int id;
             try
             {
-                if (myContext.UserRole.Where(x => x.Id == pengadaan.PetugasId).FirstOrDefault().Role_Id == 1)
+                var data = myContext.UserRole.Where(x => x.Id == pengadaan.PetugasId).FirstOrDefault();     
+                if (data != null && data.Role_Id == 1 )
                 {
                     var isExist = myContext.Barang.Where(x => x.Nama == pengadaan.Nama).FirstOrDefault();
                     if (isExist != null)

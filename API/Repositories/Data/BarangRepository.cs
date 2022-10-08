@@ -20,11 +20,13 @@ namespace API.Repositories.Data
         public int Delete(int Id)
         {
             var data = Get(Id);
-            if (data == null)
-                return -1;
-            myContext.Barang.Remove(data);
-            var result = myContext.SaveChanges();
-            return result;
+            if (data != null && data.Stok == 0)
+            {
+                myContext.Barang.Remove(data);
+                var result = myContext.SaveChanges();
+                return result;
+            }   
+            return -1;
         }
 
         public List<Barang> Get()
@@ -41,7 +43,7 @@ namespace API.Repositories.Data
 
         public int Post(BarangVM barang)
         {
-            myContext.Barang.Add(new Barang { Nama = barang.Nama, Satuan = barang.Satuan, Stok = barang.Stok });
+            myContext.Barang.Add(new Barang { Nama = barang.Nama, Satuan = barang.Satuan });
             var result = myContext.SaveChanges();
             return result;
         }
@@ -53,7 +55,6 @@ namespace API.Repositories.Data
                 return -1;
             data.Nama = barang.Nama;
             data.Satuan = barang.Satuan;
-            data.Stok = barang.Stok;
             myContext.Barang.Update(data);
             var result = myContext.SaveChanges();
             return result;

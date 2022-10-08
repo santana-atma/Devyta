@@ -13,5 +13,7 @@ namespace API.Repositories.Interface
         Barang Get(int id);
         int Post(BarangVM barang);
         int Put(Barang barang);
+
+        int Delete(int id);
     }
 }

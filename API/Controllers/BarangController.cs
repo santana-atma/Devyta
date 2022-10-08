@@ -38,7 +38,32 @@ namespace API.Controllers
                 return Ok(new { statusCode = 200, message = "Detail aset", data = data });
             return NotFound(new { statusCode = 404, message = "Aset tidak ditemukan" });
         }
-
-        
+      
+        [HttpPost]
+        public IActionResult Post(BarangVM barang)
+        {
+            var result = barangRepository.Post(barang);
+            if (result > 0)
+                return Ok(new { statusCode = 200, message = "Barang berhasil ditambah" });
+            return BadRequest(new { statusCode = 400, message = "Barang gagal ditambah" });
+        }
+        // Put: api/Barangs/5
+        [HttpPut("{id}")]
+        public IActionResult Put(Barang barang)
+        {
+            var result = barangRepository.Put(barang);
+            if (result > 0)
+                return Ok(new { statusCode = 200, message = "Barang berhasil diubah" });
+            return BadRequest(new { statusCode = 400, message = "Barang gagal diubah" });
+        }
+        // Delete: api/Barangs/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Barang barang)
+        {
+            var result = barangRepository.Delete(barang.Id);
+            if (result > 0)
+                return Ok(new { statusCode = 200, message = "Barang berhasil dihapus" });
+            return BadRequest(new { statusCode = 400, message = "Barang gagal dihapus" });
+        }
     }
 }
