@@ -14,6 +14,5 @@ namespace API.Models
         public string Nama { get; set; }
         public string Satuan { get; set; }
         public int Stok { get; set; }
-      
     }
 }

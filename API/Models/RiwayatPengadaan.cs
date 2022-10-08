@@ -14,8 +14,9 @@ namespace API.Models
         public Barang Barang { get; set; }
         [ForeignKey("Barang")]
         public int Barang_Id { get; set; }
-        public string Tanggal { get; set; }
+        public DateTime Tanggal { get; set; }
         public int Jumlah { get; set; }
+        public double Harga { get; set; }
         public string Supplier { get; set; }
 
     }
