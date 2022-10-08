@@ -18,7 +18,8 @@
 
     <!-- Custom styles for this template-->
     <link href="~/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!--Data tables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 </head>
 
 <body id="page-top">
@@ -53,9 +54,20 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Master
             </div>
-
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Aset">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Aset</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Pengadaan">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pengadaan</span>
+                </a>
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -164,8 +176,6 @@
                     </button>
 
                     <!-- Topbar Search -->
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -245,7 +255,7 @@
                         </li>
 
                         <!-- Nav Item - Messages -->
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -285,7 +295,7 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-               @RenderBody();
+                @RenderBody();
                 <!-- /.container-fluid -->
 
             </div>
@@ -346,6 +356,7 @@
     <!-- Page level custom scripts -->
     <script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
     <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>
+    @RenderSection("Scripts", required: false)
 
 </body>
 
