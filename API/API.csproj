@@ -5,14 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20221007132258_Initial.cs" />
-    <Compile Remove="Migrations\20221007132258_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20221007145446_Re-Initialize.cs" />
-    <Compile Remove="Migrations\20221007145446_Re-Initialize.Designer.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.29">
@@ -24,6 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Repositories\Data\" />
+    <Folder Include="Repositories\Interface\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
