@@ -21,6 +21,5 @@ namespace API.Context
         public DbSet<RiwayatPengadaan> RiwayatPengadaan { get; set; }
         public DbSet<RiwayatPeminjaman> RiwayatPeminjaman { get; set; }
         public DbSet<RiwayatPerbaikan> RiwayatPerbaikan { get; set; }
-        public object UserRoles { get; internal set; }
     }
 }
