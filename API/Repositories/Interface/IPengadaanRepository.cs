@@ -12,7 +12,7 @@ namespace API.Repositories.Interface
         List<RiwayatPengadaan> Get();
         RiwayatPengadaan Get(int id);
         int Post(PengadaanVM pengadaan);
-        int Put(RiwayatPengadaan pengadaan);
+        int Put(int id,PengadaanVM pengadaan);
         int Delete(int id);
     }
 }

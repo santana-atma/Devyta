@@ -31,6 +31,13 @@ namespace API
         {
             services.AddControllers();
             services.AddDbContext<MyContext>(option => option.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            //cors
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            });
+
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -57,6 +64,9 @@ namespace API
 
             #region Dependency Injection
             //services.AddScoped<UserRepository>();
+            services.AddScoped<PeminjamanRepository>();
+            services.AddScoped<PerbaikanRepository>();
+            services.AddScoped<AccountRepository>();
             services.AddScoped<BarangRepository>();
             services.AddScoped<PengadaanRepository>();
             #endregion Dependency Injection
@@ -87,6 +97,7 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseCors("AllowOrigin");
 
             app.UseEndpoints(endpoints =>
             {
