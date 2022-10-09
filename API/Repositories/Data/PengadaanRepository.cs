@@ -90,7 +90,6 @@ namespace API.Repositories.Data
         {
             using var transaction = myContext.Database.BeginTransaction();
             var result = 0;
-            int id;
             try
             {
                 var data = myContext.UserRole.Where(x => x.Id == pengadaan.PetugasId).FirstOrDefault();
@@ -99,7 +98,7 @@ namespace API.Repositories.Data
                     var isExist = myContext.RiwayatPengadaan.Find(Id);
                     if (isExist != null)
                     {
-                        var barang = myContext.Barang.FirstOrDefault(x => x.Id == data.Barang_Id);
+                        var barang = myContext.Barang.FirstOrDefault(x => x.Id == isExist.Barang_Id);
                         isExist.Tanggal = pengadaan.Tanggal;
                         barang.Stok = barang.Stok - isExist.Jumlah + pengadaan.Jumlah;
                         isExist.Jumlah = pengadaan.Jumlah;
