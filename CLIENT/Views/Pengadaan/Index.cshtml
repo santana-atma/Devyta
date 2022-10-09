@@ -3,16 +3,20 @@
     ViewData["Title"] = "Index";
     Layout = "_AdminTemplate";
 }
-
+@* untuk keperluan auth *@
+<input type="hidden" id="role" value="@ViewData["sessionRole"]"/>
+<input type="hidden" id="userId" value="@ViewData["sessionUserId"]"/>
 <div class="card">
     <div class="card-body">
         <h1>List Riwayat Pengadaan</h1>
-        <p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pengadaanModal">
-                Tambah Pengadaan Aset
-            </button>
-        </p>
-
+        @if (@ViewData["sessionRole"] != null && @ViewData["sessionRole"].ToString() == "ADMIN")
+        {
+            <p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pengadaanModal">
+                    Tambah Pengadaan Aset
+                </button>
+            </p>
+        }
         @*table*@
         <div class="table-responsive">
             <table class="table" id="table_pengadaan">

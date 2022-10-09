@@ -1,5 +1,9 @@
 let table = null;
 let baseUrl = "https://localhost:44307/api/RiwayatPengadaan";
+let role = $("#role").val();
+let isAdmin = role.toLowerCase() == "admin";
+let UserId = $("#userId").val();
+console.log(isAdmin);
 $(document).ready(function () {
     table = $('#table_pengadaan').DataTable({
         ajax: {
@@ -38,10 +42,11 @@ $(document).ready(function () {
             {
                 data: "",
                 render: function (data, type, row) {
-                    return `<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#pengadaanModal" onclick="Edit('${row.id}')">Edit</button>
-                            <button class="btn btn-sm btn-danger" onclick="Delete('${row.id}');">Delete</button>`       
-                }
-            },
+                        return `<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#pengadaanModal" onclick="Edit('${row.id}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="Delete('${row.id}');">Delete</button>`
+                },
+                visible: isAdmin
+            }
         ]
     });
 });
@@ -105,8 +110,7 @@ function Insert()
     if (validation == 0) {
         if (id == -1) { //kalo id -1 berarti add
             let data = {};
-            //ini masih hardcode
-            data.petugasId = 1;
+            data.petugasId = parseInt(UserId);
             data.nama = $("#nama").val();
             data.satuan = $("#satuan").val();
             data.tanggal = tanggal;
@@ -142,7 +146,7 @@ function Insert()
         } else { //kalo id tidak -1 berarti update
             let data = {};
             //ini masih hardcode
-            data.petugasId = 1;
+            data.petugasId = parseInt(UserId);
             data.nama = $("#nama").val();
             data.satuan = $("#satuan").val();
             data.tanggal = tanggal;
