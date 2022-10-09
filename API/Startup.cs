@@ -70,6 +70,8 @@ namespace API
             services.AddScoped<BarangRepository>();
             services.AddScoped<PengadaanRepository>();
             #endregion Dependency Injection
+            services.AddDistributedMemoryCache();
+            services.AddSession();
 
         }
 
@@ -96,6 +98,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseCors("AllowOrigin");
 
