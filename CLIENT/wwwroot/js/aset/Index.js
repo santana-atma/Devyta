@@ -38,7 +38,8 @@ $(document).ready(function () {
                     else
                     {
                         return `<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailAset" onclick="Detail('${row.id}');">Detail</button>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>`
+                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger disabled">Delete</button>`
                     }
                 }
             },
