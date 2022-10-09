@@ -101,6 +101,7 @@ namespace API.Repositories.Data
                         var barang = myContext.Barang.FirstOrDefault(x => x.Id == isExist.Barang_Id);
                         isExist.Tanggal = pengadaan.Tanggal;
                         barang.Stok = barang.Stok - isExist.Jumlah + pengadaan.Jumlah;
+                        barang.Nama = pengadaan.Nama;
                         isExist.Jumlah = pengadaan.Jumlah;
                         isExist.Harga = pengadaan.Harga;
                         isExist.Supplier = pengadaan.Supplier;

@@ -4,10 +4,9 @@
     Layout = "_AdminTemplate";
 }
 
-<div class="card">
+<div class="card shadow">
     <div class="card-body">
         <h1>List Aset</h1>
-
         <p>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                 Tambah Aset
@@ -15,7 +14,8 @@
         </p>
 
         @*table*@
-        <table class="table" id="table_aset">
+        <div class="table-responsive">
+            <table class="table" id="table_aset">
             <thead>
                 <tr>
                     <th>No</th>
@@ -40,10 +40,11 @@
             </tbody>
         </table>
     </div>
+    </div>
 </div>
 
 
-@*modal*@
+@*modal create and update*@
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -55,7 +56,7 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <input type="hidden" value="-1" id="idAset"/>
+                    <input type="hidden" value="-1" id="idAset" />
                     <div class="form-group">
                         <label for="nama">Nama Aset</label>
                         <input type="text" class="form-control" id="nama">
@@ -64,10 +65,61 @@
                     <div class="form-group">
                         <label for="satuan">Satuan</label>
                         <input type="text" class="form-control" id="satuan">
-                        <span class="text-danger text-sm-left" id="errorSatuan"></span>
+                        <span class="text-danger text-sm-left" id="errorNama"></span>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*modal details*@
+<div class="modal fade" id="detailAset" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Aset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>ID Aset</strong></p>
+                        <p><strong>Nama Aset</strong></p>
+                        <p><strong>Stok</strong></p>
+                    </div>
+                    <div class="col">
+                        <p id="id_Aset"></p>
+                        <p id="namaAset"></p>
+                        <p id="stokAset">0</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Riwayat Pengadaan</h4>
+                        <div class="table-responsive">
+                            <table class="table" id="detailAsetTable">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Tanggal</th>
+                                        <th>Supplier</th>
+                                        <th>Satuan</th>
+                                        <th>Jumlah</th>
+                                        <th>Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listRiwayatPengadaan"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

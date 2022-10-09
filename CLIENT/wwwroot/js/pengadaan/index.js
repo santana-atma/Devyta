@@ -29,7 +29,8 @@ $(document).ready(function () {
             {
                 data: "harga",
                 render: function (data, type, row) {
-                    return `${formatRupiah(row.harga)}`               }
+                    return `${formatRupiah(row.harga)}`
+                }
             },
             {
                 data: "supplier"
@@ -37,8 +38,7 @@ $(document).ready(function () {
             {
                 data: "",
                 render: function (data, type, row) {
-                    return `<button class="btn btn-sm btn-primary">Detail</button>
-                            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#pengadaanModal" onclick="Edit('${row.id}')">Edit</button>
+                    return `<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#pengadaanModal" onclick="Edit('${row.id}')">Edit</button>
                             <button class="btn btn-sm btn-danger" onclick="Delete('${row.id}');">Delete</button>`       
                 }
             },
@@ -60,7 +60,7 @@ function validasiInputan(obj) {
         $("#errorTanggal").html("Tanggal tidak boleh kosong")
         error++;
     }
-    if (obj.jumlah == "") {
+    if (obj.jumlah == 0 || obj.jumlah == NaN) {
         $("#errorJumlah").html("Jumlah tidak boleh kosong")
         error++;
     }
@@ -68,14 +68,15 @@ function validasiInputan(obj) {
         $("#errorSupplier").html("Supplier tidak boleh kosong")
         error++;
     }
-    if (obj.harga == "") {
+    if (obj.harga == "" || obj.harga == NaN) {
         $("#errorHarga").html("Harga tidak boleh kosong")
         error++;
     }
     return error;
 }
 
-$('#createModal').on('hidden.bs.modal', function () {
+$('#pengadaanModal').on('hidden.bs.modal', function () {
+    $("#idPengadaan").val(-1);
     $("#nama").val("");
     $("#tanggal").val("");
     $("#supplier").val("");
