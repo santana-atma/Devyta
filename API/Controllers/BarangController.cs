@@ -36,7 +36,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = barangRepository.Get(id);
+            var data = barangRepository.GetDetails(id);
             if(data != null)
                 return Ok(new { statusCode = 200, message = "Detail aset", data = data });
             return NotFound(new { statusCode = 404, message = "Aset tidak ditemukan" });

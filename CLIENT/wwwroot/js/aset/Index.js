@@ -31,13 +31,13 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (row.stok == 0)
                     {
-                        return `<button class="btn btn-sm btn-primary">Detail</button>
+                        return `<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailAset" onclick="Detail('${row.id}');">Detail</button>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" onclick="Delete('${row.id}');">Delete</button>`
                     }
                     else
                     {
-                        return `<button class="btn btn-sm btn-primary">Detail</button>
+                        return `<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailAset" onclick="Detail('${row.id}');">Detail</button>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>`
                     }
                 }
@@ -47,6 +47,7 @@ $(document).ready(function () {
 });
 
 $('#createModal').on('hidden.bs.modal', function () {
+    $("#idAset").val(-1);
     $("#nama").val("");
     $("#satuan").val("");
     $("#errorNama").html("")
@@ -193,4 +194,82 @@ function Delete(id) {
             })
         }
     })
+}
+
+function Detail(id)
+{
+    $.ajax({
+        url: baseUrl + `/${id}`,
+        type: "Get",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result;
+        console.log(data)
+
+        $("#id_Aset").html(data.barang.id)
+        $("#namaAset").html(data.barang.nama)
+        $("#stokAset").html(data.barang.stok)
+    }).fail((error) => {
+        console.log(error);
+    })
+
+    //table riwayat
+    $('#detailAsetTable').DataTable({
+        destroy: true,
+        "autoWidth": false,
+        pageLength: 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+        ajax: {
+            url: baseUrl + `/${id}`,
+            dataSrc: "data.riwayat_Pengadaan",
+            dataType: "JSON"
+        },
+        columns: [
+            {
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            {
+                data: "tanggal",
+                render: function (data, type, row) {
+                    return new Date(row.tanggal).toDateString();
+                }
+            },
+            {
+                data: "supplier"
+            },
+            {
+                data: "barang.satuan"
+            },
+            {
+                data: "jumlah"
+            },
+            {
+                data: "harga",
+                render: function (data, type, row) {
+                    return `${formatRupiah(row.harga)}`
+                }
+            },
+        ]
+    });
+}
+
+function formatRupiah(price) {
+    if (price === 0 || price === null) {
+        return price;
+    } else {
+        let rupiah = "";
+        let angkarev = price.toString().split("").reverse().join("");
+        for (let i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+        return (
+            "Rp " +
+            rupiah
+                .split("", rupiah.length - 1)
+                .reverse()
+                .join("")
+        );
+    }
+    return rupiah
 }
