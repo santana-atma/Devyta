@@ -43,28 +43,31 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="post" asp-action="Login">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input name="email" type="email" class="form-control form-control-user"
                                                    id="exampleInputEmail" aria-describedby="emailHelp"
                                                    placeholder="Masukkan Alamat Email">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input name="password" type="password" class="form-control form-control-user"
                                                    id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">
-                                                    Ingat
-                                                    Saya
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <a href="~/sbadmin/index.html" class="btn btn-primary btn-user btn-block">
+                                        @*<div class="form-group">
+                                                <div class="custom-control custom-checkbox small">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                    <label class="custom-control-label" for="customCheck">
+                                                        Ingat
+                                                        Saya
+                                                    </label>
+                                                </div>
+                                            </div>*@
+                                        @*<a href="~/sbadmin/index.html" class="btn btn-primary btn-user btn-block">
+                                                Login
+                                            </a>*@
+                                        <button class="btn btn-primary btn-user btn-block" type="submit">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                     </form>
                                     <hr>
@@ -88,14 +91,28 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/sbadmin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/sbadmin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="~/sbadmin/js/sb-admin-2.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (ViewBag.Message != null)
+    {
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Kesalahan input email atau password'
+        })
+    </script>
+
+    }
 
 </body>
 
