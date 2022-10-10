@@ -33,6 +33,12 @@ namespace CLIENT.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index","Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(Login login)
         {
@@ -47,7 +53,14 @@ namespace CLIENT.Controllers
                 HttpContext.Session.SetString("Role", data.data.Role);
                 HttpContext.Session.SetString("User", data.data.FullName);
                 HttpContext.Session.SetString("UserId", data.data.Id.ToString());
-                return (RedirectToAction("Index", "Home"));
+                if (HttpContext.Session.GetString("Role").Equals("Admin")){
+                    return (RedirectToAction("Index", "Dashboard"));
+                }
+                else
+                {
+                    return (RedirectToAction("Index", "Dashboard"));
+                }
+                
             }
             ViewBag.Message = "Wrong email or password";
             return View("Login", "Account");

@@ -1,0 +1,7 @@
+﻿@{
+    @using Microsoft.AspNetCore.Http;
+    if (Context.Session.GetString("User") != "Admin")
+    {
+        Layout = "_StaffTemplate";
+    }
+}

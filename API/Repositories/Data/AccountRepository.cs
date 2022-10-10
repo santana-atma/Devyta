@@ -18,10 +18,28 @@ namespace API.Repositories.Data
             this.myContext = myContext;
         }
 
-        public List<Karyawan> Get()
+        public List<ResponseLogin> Get()
         {
-            var data = myContext.Karyawan.ToList();
-            return data;
+            var data = myContext.UserRole
+                .Include(x => x.Role)
+                .Include(x => x.User.Karyawan)
+                .ToList();
+            var dataKaryawan = new List<ResponseLogin>();
+            foreach (var item in data)
+            {
+                var temp = new ResponseLogin()
+                {
+                    Id = item.Id,
+                    FullName = item.User.Karyawan.Fullname,
+                    Email = item.User.Karyawan.Email,
+                    Alamat = item.User.Karyawan.Alamat,
+                    Telp = item.User.Karyawan.Telp,
+                    Role = item.Role.Nama
+
+                };
+                dataKaryawan.Add(temp);
+            }
+            return dataKaryawan;
         }
 
         public Karyawan Get(int id)
