@@ -1,5 +1,8 @@
 let table = null;
 let baseUrl = "https://localhost:44307/api/Barang";
+let role = $("#role").val();
+let isAdmin = role.toLowerCase() == "admin";
+
 $(document).ready(function () {
     table = $('#table_aset').DataTable({
         ajax: {
@@ -29,11 +32,15 @@ $(document).ready(function () {
             {
                 data: "",
                 render: function (data, type, row) {
-                    if (row.stok == 0)
+                    if (isAdmin && row.stok == 0) //jika admin dan barang stok kosong
                     {
                         return `<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailAset" onclick="Detail('${row.id}');">Detail</button>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" onclick="Delete('${row.id}');">Delete</button>`
+                    }
+                    else if (isAdmin == false) //jika bukan admin hanya bisa lihat detail barang
+                    {
+                        return `<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailAset" onclick="Detail('${row.id}');">Detail</button>`
                     }
                     else
                     {
@@ -41,7 +48,7 @@ $(document).ready(function () {
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#createModal" onclick="Edit('${row.id}')">Edit</button>
                                 <button class="btn btn-sm btn-danger disabled">Delete</button>`
                     }
-                }
+                },
             },
         ]
     });
