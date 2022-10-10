@@ -22,13 +22,13 @@ namespace API.Repositories.Data
         //READ/GET All Perbaikan
         public List<RiwayatPerbaikan> Get()
         {
-            return _context.RiwayatPerbaikan.Include(x=>x.Barang).ToList();
+            return _context.RiwayatPerbaikan.Include(x=>x.Barang).Include(x => x.Karyawan).ToList();
         }
 
         //READ/GET By Id Perbaikan
         public RiwayatPerbaikan Get(int Id)
         {
-            return _context.RiwayatPerbaikan.Find(Id);
+            return _context.RiwayatPerbaikan.Include(x => x.Barang).Include(x => x.Barang).Where(x=>x.Id==Id).FirstOrDefault();
         }
 
 
@@ -59,6 +59,7 @@ namespace API.Repositories.Data
                 var data = new RiwayatPerbaikan()
                 {
                     Barang_Id = perbaikan.Barang_Id,
+                    Karyawan_Id = perbaikan.Karyawan_Id,
                     Keterangan = perbaikan.Keterangan,
                     Biaya = 0, //dari FrontEnd harus set ke 0 saat create
                     Jumlah = perbaikan.Jumlah,
@@ -100,6 +101,7 @@ namespace API.Repositories.Data
                         return 0;
                     }
                     riwayatPerbaikan.Barang_Id = perbaikan.Barang_Id;
+                    riwayatPerbaikan.Karyawan_Id = perbaikan.Karyawan_Id;
                     riwayatPerbaikan.Biaya = perbaikan.Biaya;
                     riwayatPerbaikan.Status = perbaikan.Status;
                     riwayatPerbaikan.Tanggal_Terima = perbaikan.Tanggal_Terima;
