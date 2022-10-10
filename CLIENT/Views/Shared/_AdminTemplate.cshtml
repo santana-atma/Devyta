@@ -72,36 +72,33 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Peminjaman</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="~/sbadmin/buttons.html">Buttons</a>
-                        <a class="collapse-item" href="~/sbadmin/cards.html">Cards</a>
+                        <a class="collapse-item" asp-action="Index" asp-controller="Peminjaman">Pinjam Aset</a>
+                        <a class="collapse-item" asp-action="RiwayatPeminjaman" asp-controller="Peminjaman">Riwayat Peminjaman</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                   aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Perbaikan</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-action="Index" asp-controller="Perbaikan">Perbaikan Aset</a>
+                        <a class="collapse-item" asp-action="RiwayatPerbaikan" asp-controller="Perbaikan">Riwayat Perbaikan</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                   aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="~/sbadmin/utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="~/sbadmin/utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="~/sbadmin/utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="~/sbadmin/utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
