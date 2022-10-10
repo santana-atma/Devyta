@@ -73,9 +73,9 @@ namespace API.Controllers
 
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(RiwayatPengadaan pengadaan)
+        public IActionResult Delete(int id)
         {
-            var result = pengadaanRepository.Delete(pengadaan.Id);
+            var result = pengadaanRepository.Delete(id);
             if (result > 0)
             {
                 return Ok(new { message = "Sukses hapus data", statusCode = 200 });

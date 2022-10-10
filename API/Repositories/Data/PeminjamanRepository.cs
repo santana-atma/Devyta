@@ -28,7 +28,7 @@ namespace API.Repositories.Data
         //READ/GET By Id Peminjaman
         public RiwayatPeminjaman Get(int Id)
         {
-            return _context.RiwayatPeminjaman.Find(Id);
+            return _context.RiwayatPeminjaman.Include(x => x.Barang).Include(x => x.Karyawan).Where(x=>x.Id==Id).FirstOrDefault();
         }
 
 
@@ -41,7 +41,7 @@ namespace API.Repositories.Data
             try
             {
                 //Cek apakah masih ada pinjaman dengan barang dan peminjam yang sama dengan status belum kembali, jika True maka belum bisa pinjam
-                if (_context.RiwayatPeminjaman.Where(x => x.Karyawan_Id == peminjaman.Karyawan_Id && x.Status == "Pinjam" && x.Barang_Id == peminjaman.Barang_Id).FirstOrDefault() != null)
+                if (_context.RiwayatPeminjaman.Where(x => x.Karyawan_Id == peminjaman.Karyawan_Id && x.Status == "PINJAM" && x.Barang_Id == peminjaman.Barang_Id).FirstOrDefault() != null)
                 {
                     return 0;
                 }
@@ -66,7 +66,7 @@ namespace API.Repositories.Data
                         Barang_Id = peminjaman.Barang_Id,
                         Karyawan_Id = peminjaman.Karyawan_Id,
                         Jumlah = peminjaman.Jumlah,
-                        Status = "Pinjam",
+                        Status = "PINJAM",
                         Tanggal_Pinjam = peminjaman.Tanggal_Pinjam,
                         Tanggal_Kembali = peminjaman.Tanggal_Kembali
                     };

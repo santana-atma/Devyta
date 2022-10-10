@@ -10,6 +10,7 @@ namespace API.Repositories.Interface
     public interface IBarangRepository
     {
         List<Barang> Get();
+        ResponseDetailAset GetDetails(int id);
         Barang Get(int id);
         int Post(BarangVM barang);
         int Put(int id, BarangVM barang);
