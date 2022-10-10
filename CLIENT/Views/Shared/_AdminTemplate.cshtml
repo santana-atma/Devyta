@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
 </head>
 
@@ -256,7 +257,9 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                @RenderBody();
+                <div class="mx-4">
+                    @RenderBody();
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
