@@ -4,6 +4,7 @@ using API.Repositories.Interface;
 using API.ViewModels;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,11 +35,18 @@ namespace API.Repositories.Data
             var data = myContext.Barang.ToList();
             return data;
         }
-
         public Barang Get(int id)
         {
             var data = myContext.Barang.Find(id);
             return data;
+        }
+
+        public ResponseDetailAset GetDetails(int id)
+        {
+            var barang = myContext.Barang.Find(id);
+            var listRiwayat = myContext.RiwayatPengadaan.Where(x => x.Barang_Id == barang.Id).ToList();
+            ResponseDetailAset result = new ResponseDetailAset { Barang = barang, Riwayat_Pengadaan = listRiwayat };
+            return result;
         }
 
         public int Post(BarangVM barang)

@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminTemplate";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h1>List Riwayat Pengadaan</h1>
+        <p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pengadaanModal">
+                Tambah Pengadaan Aset
+            </button>
+        </p>
+
+        @*table*@
+        <div class="table-responsive">
+            <table class="table" id="table_pengadaan">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Aset</th>
+                        <th>Tanggal</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Supplier</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        @*end table*@
+
+    </div>
+</div>
+
+
+@*modal*@
+<div class="modal fade" id="pengadaanModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form Pengadaan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="-1" id="idPengadaan" />
+                    <div class="form-group">
+                        <label for="nama">Nama Aset</label>
+                        <input type="text" class="form-control" id="nama">
+                        <span class="text-danger text-sm-left" id="errorNama"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Tanggal</label>
+                        <input type="date" class="form-control" id="tanggal">
+                        <span class="text-danger text-sm-left" id="errorTanggal"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Supplier</label>
+                        <input type="text" class="form-control" id="supplier">
+                        <span class="text-danger text-sm-left" id="errorSupplier"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Satuan</label>
+                        <input type="text" class="form-control" id="satuan">
+                        <span class="text-danger text-sm-left" id="errorSatuan"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Jumlah</label>
+                        <input type="number" class="form-control" id="jumlah" min="0">
+                        <span class="text-danger text-sm-left" id="errorJumlah"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Harga</label>
+                        <input type="number" class="form-control" id="harga" min="0">
+                        <span class="text-danger text-sm-left" id="errorHarga"></span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/pengadaan/index.js"></script>
+}
