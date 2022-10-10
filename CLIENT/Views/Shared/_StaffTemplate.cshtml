@@ -21,8 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
-    <!--Data tables-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
 </head>
 
 <body id="page-top">
@@ -57,65 +56,38 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-
-                Master
+                Menu
             </div>
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Aset">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Aset</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Pengadaan">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Pengadaan</span>
-                </a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Peminjaman</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-action="Index" asp-controller="Peminjaman">Pinjam Aset</a>
-                        <a class="collapse-item" asp-action="RiwayatPeminjaman" asp-controller="Peminjaman">Riwayat Peminjaman</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                   aria-expanded="true" aria-controls="collapseThree">
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            @*<div class="sidebar-heading">
+                Addons
+            </div>*@
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - UserPanel -->
+
+            <!--<li class="nav-item">
+                <a class="nav-link" href="~/sbadmin/charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span>
+                </a>
+            </li>-->
+
+            <!-- Nav Item - Tables -->
+            <!--<li class="nav-item">
+                <a class="nav-link" href="~/sbadmin/tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Perbaikan</span>
+                    <span>Tables</span>
                 </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-action="Index" asp-controller="Perbaikan">Perbaikan Aset</a>
-                        <a class="collapse-item" asp-action="RiwayatPerbaikan" asp-controller="Perbaikan">Riwayat Perbaikan</a>
-                    </div>
-                </div>
-            </li>
+            </li>-->
 
-
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("UserPanel","Account")">
-                    <i class="fas fa-fw fa-solid fa-users"></i>
-                    <span>Managemen User</span>
-                </a>
-            </li>
-
-
-
-
-
+            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
@@ -124,6 +96,8 @@
             </div>
 
             <!-- Sidebar Message -->
+
+
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
@@ -277,6 +251,7 @@
 
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
@@ -322,7 +297,7 @@
 
     <!-- Page level custom scripts -->
     @*<script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
-        <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>*@
+    <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>*@
     @RenderSection("Scripts", required: false)
 
 </body>
