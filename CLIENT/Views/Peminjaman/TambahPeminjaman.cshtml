@@ -1,52 +1,46 @@
 ﻿
 @{
-    ViewData["Title"] = "Riwayat Peminjaman";
-    Layout = "_AdminTemplate";
+    ViewData["Title"] = "Peminjaman Aset";
+    Layout = "_StaffTemplate";
 }
 
-<div class="card">
+<div class="card shadow">
     <div class="card-body">
-        <h1>Riwayat Peminjaman</h1>
-
-        <p>
-            <a type="button" class="btn btn-primary" asp-action="Index">
-                Tambah Peminjaman
+        <h3>Peminjaman Aset</h3>
+        <div class="my-2">
+            <a asp-action="Index" asp-controller="Peminjaman">
+                Kembali
             </a>
-        </p>
+        </div>
 
         @*table*@
-        <table class="table" id="table_peminjaman">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>
-                        Aset
-                    </th>
-                    <th>
-                        Peminjam
-                    </th>
-                    <th>
-                        Tanggal Pinjam
-                    </th>
-                    <th>
-                        Tanggal Kembali
-                    </th>
-                    <th>
-                        Jumlah
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Aksi
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table" id="table_aset">
+                <thead>
+                    <tr>
+                        <th>No</th>
+
+                        <th>
+                            Nama Aset
+                        </th>
+                        <th>
+                            Stok
+                        </th>
+                        <th>
+                            Satuan
+                        </th>
+                        <th>
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 
 @*modal*@
@@ -62,11 +56,7 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" value="-1" id="idPeminjaman" />
-                    <div class="form-group">
-                        <label for="barang_id">ID Aset</label>
-                        <input type="number" class="form-control" id="barang_id">
-                        <span class="text-danger text-sm-left" id="errorBarang_id"></span>
-                    </div>
+                    <input type="hidden" value="0" id="barang_id">
                     <div class="form-group">
                         <label for="karyawan_id">ID Karyawan</label>
                         <input type="number" class="form-control" id="karyawan_id">
@@ -91,7 +81,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="Update()">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
             </div>
         </div>
     </div>
@@ -100,5 +90,5 @@
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/js/peminjaman/riwayat_peminjaman.js"></script>
+    <script src="~/js/peminjaman/tambah_peminjaman.js"></script>
 }

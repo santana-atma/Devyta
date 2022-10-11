@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
 </head>
 
@@ -40,8 +41,6 @@
                 <div class="sidebar-brand-text mx-3">DEVYTA</div>
             </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -59,33 +58,18 @@
                 Menu
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            @*<div class="sidebar-heading">
-                Addons
-            </div>*@
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- Nav Item - UserPanel -->
-
-            <!--<li class="nav-item">
-                <a class="nav-link" href="~/sbadmin/charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
-                </a>
-            </li>-->
-
-            <!-- Nav Item - Tables -->
-            <!--<li class="nav-item">
-                <a class="nav-link" href="~/sbadmin/tables.html">
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Peminjaman">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
+                    <span>Peminjaman</span>
                 </a>
-            </li>-->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Perbaikan">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Perbaikan</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -234,7 +218,9 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                @RenderBody();
+                <div class="mx-4">
+                    @RenderBody();
+                </div>
                 <!-- /.container-fluid -->
 
             </div>

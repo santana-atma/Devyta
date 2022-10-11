@@ -1,41 +1,52 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
-    Layout = "_AdminTemplate";
+    ViewData["Title"] = "Riwayat Peminjaman";
+    Layout = "_StaffTemplate";
 }
 
-<div class="card shadow">
+<div class="card">
     <div class="card-body">
-        <h1>Peminjaman Aset</h1>
+        <h3>Riwayat Peminjaman</h3>
+
+        <p>
+            <a class="btn btn-primary" asp-action="TambahPeminjaman" asp-controller="Peminjaman">
+                Tambah Peminjaman
+            </a>
+        </p>
 
         @*table*@
-        <div class="table-responsive">
-            <table class="table" id="table_aset">
-                <thead>
-                    <tr>
-                        <th>No</th>
-
-                        <th>
-                            Nama Aset
-                        </th>
-                        <th>
-                            Stok
-                        </th>
-                        <th>
-                            Satuan
-                        </th>
-                        <th>
-                            Aksi
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+        <table class="table" id="table_peminjaman">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>
+                        Aset
+                    </th>
+                    <th>
+                        Peminjam
+                    </th>
+                    <th>
+                        Tanggal Pinjam
+                    </th>
+                    <th>
+                        Tanggal Kembali
+                    </th>
+                    <th>
+                        Jumlah
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
-
 
 
 @*modal*@
@@ -51,7 +62,11 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" value="-1" id="idPeminjaman" />
-                    <input type="hidden" value="0" id="barang_id">
+                    <div class="form-group">
+                        <label for="barang_id">ID Aset</label>
+                        <input type="number" class="form-control" id="barang_id">
+                        <span class="text-danger text-sm-left" id="errorBarang_id"></span>
+                    </div>
                     <div class="form-group">
                         <label for="karyawan_id">ID Karyawan</label>
                         <input type="number" class="form-control" id="karyawan_id">
@@ -76,7 +91,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="Update()">Submit</button>
             </div>
         </div>
     </div>
