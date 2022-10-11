@@ -1,4 +1,5 @@
 using API.Context;
+using API.Data;
 using API.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -107,6 +108,8 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+            //data seeder
+            DataInitializer.Seed(app);
         }
     }
 }
