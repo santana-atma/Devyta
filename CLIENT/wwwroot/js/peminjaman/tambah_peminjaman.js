@@ -4,7 +4,6 @@ let baseUrl = "https://localhost:44307/api/Barang";
 let postUrl = "https://localhost:44307/api/Peminjaman";
 let getKaryawan = "https://localhost:44307/api/karyawan";
 $(document).ready(function () {
-    // Initialize select2
 
     table = $('#table_aset').DataTable({
         ajax: {
