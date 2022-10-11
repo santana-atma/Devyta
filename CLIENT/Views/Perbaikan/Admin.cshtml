@@ -1,12 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Riwayat Perbaikan";
+    ViewData["Title"] = "List Perbaikan";
     Layout = "_AdminTemplate";
 }
 
 <div class="card">
     <div class="card-body">
         <h1>Riwayat Perbaikan</h1>
-
 
         @*table*@
         <table class="table" id="table_perbaikan">
@@ -15,6 +14,9 @@
                     <th>No</th>
                     <th>
                         Aset
+                    </th>
+                    <th>
+                        Peminjam
                     </th>
                     <th>
                         Kerusakan
@@ -45,30 +47,24 @@
     </div>
 </div>
 
-
 @*modal*@
 <div class="modal fade" id="perbaikanModal" tabindex="-1" aria-labelledby="perbaikanModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Peminjaman Aset</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Terima Pengajuan Perbaikan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form>
-                    
-                    <div class="form-group">
-                        <label for="barang_id">ID Aset</label>
-                        <input type="number" class="form-control" id="barang_id">
-                        <span class="text-danger text-sm-left" id="errorBarang_id"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="karyawan_id">ID Karyawan</label>
-                        <input type="number" class="form-control" id="karyawan_id">
-                        <span class="text-danger text-sm-left" id="errorKaryawan_id"></span>
-                    </div>
+                    <input type="hidden" value="0" id="id_perbaikan">
+                    <input type="hidden" value="0" id="barang_id">
+                    <input type="hidden" value="0" id="karyawan_id">
+                    <input type="hidden" value="0" id="tanggal_terima">
+                    <input type="hidden" value="0" id="jumlah">
+                    <input type="hidden" value="0" id="status">
 
                     <div class="form-group">
                         <label for="keterangan">Kerusakan</label>
@@ -76,14 +72,14 @@
                         <span class="text-danger text-sm-left" id="errorKeterangan"></span>
                     </div>
                     <div class="form-group">
-                        <label for="tanggal_terima">Tanggal Terima</label>
-                        <input type="date" class="form-control" id="tanggal_terima">
-                        <span class="text-danger text-sm-left" id="errorTanggal_terima"></span>
+                        <label for="tanggal_selesai">Tanggal Selesai</label>
+                        <input type="date" class="form-control" id="tanggal_selesai">
+                        <span class="text-danger text-sm-left" id="errorTanggal_selesai"></span>
                     </div>
                     <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="number" class="form-control" id="jumlah" min="1">
-                        <span class="text-danger text-sm-left" id="errorJumlah"></span>
+                        <label for="biaya">Biaya</label>
+                        <input type="number" class="form-control" id="biaya" min="0">
+                        <span class="text-danger text-sm-left" id="errorBiaya"></span>
                     </div>
                 </form>
             </div>
@@ -98,5 +94,5 @@
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/js/perbaikan/riwayat-perbaikan.js"></script>
+    <script src="~/js/perbaikan/admin.js"></script>
 }

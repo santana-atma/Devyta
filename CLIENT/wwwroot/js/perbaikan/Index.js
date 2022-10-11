@@ -1,8 +1,8 @@
 ﻿let table = null;
-let baseUrl = "https://localhost:44307/api/Peminjaman";
-let postUrl = "https://localhost:44307/api/Perbaikan";
+let baseUrl = "https://localhost:44307/api/Perbaikan";
+
 $(document).ready(function () {
-    table = $('#table_peminjaman').DataTable({
+    table = $('#table_perbaikan').DataTable({
         ajax: {
             url: baseUrl,
             dataSrc: "data",
@@ -22,15 +22,12 @@ $(document).ready(function () {
                 data: "karyawan.fullname",
             },
             {
-                data: "tanggal_Pinjam",
-                render: function (data, type, row) {
-                    return new Date(row.tanggal_Pinjam).toDateString();
-                }
+                data: "keterangan",
             },
             {
-                data: "tanggal_Kembali",
+                data: "biaya",
                 render: function (data, type, row) {
-                    return new Date(row.tanggal_Kembali).toDateString();
+                    return `${formatRupiah(row.biaya)}`
                 }
             },
             {
@@ -39,17 +36,26 @@ $(document).ready(function () {
             {
                 data: "status"
             },
+            {
+                data: "tanggal_Terima",
+                render: function (data, type, row) {
+                    return new Date(row.tanggal_Terima).toDateString();
+                }
+            },
+            {
+                data: "tanggal_Selesai",
+                render: function (data, type, row) {
+                    return new Date(row.tanggal_Selesai).toDateString();
+                }
+            },
+            
 
             {
                 data: "",
                 render: function (data, type, row) {
-                    const isKembali = row.status == "KEMBALI" && 'disabled';
-                    return `<button class="btn btn-sm btn-success" 
-                            ${isKembali} 
-                            data-toggle="modal"
-                            data-target="#perbaikanModal"
-                            onclick="Perbaikan(${row.barang_Id},${row.karyawan_Id})">Perbaikan</button>
-                            `
+                    const isNotDiperiksa = row.status != "DIPERIKSA" && 'disabled';
+                    return `<button class="btn btn-sm btn-success" ${isNotDiperiksa} data-toggle="modal" data-target="#perbaikanModal" onclick="Edit('${row.id}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" ${isNotDiperiksa} onclick="Delete('${row.id}');">Delete</button>`
                 }
             },
         ],
@@ -81,19 +87,16 @@ $('#perbaikanModal').on('hidden.bs.modal', function () {
     $("#keterangan").val("");
     $("#tanggal_terima").val("");
     $("#jumlah").val("");
+    $("#errorBarang_id").html("");
+    $("#errorKaryawan_id").html("");
     $("#errorKeterangan").html("");
     $("#errorTanggal_terima").html("");
     $("#errorJumlah").html("");
 });
 
-function Perbaikan(barang_Id, karyawan_Id) {
-    $("#barang_id").val(barang_Id);
-    $("#karyawan_id").val(karyawan_Id);
-}
 
-function Insert() {
+function Update() {
     const default_tanggal_selesai = "1999-01-01";
-    console.log($("#tanggal_selesai").val());
     let barang_id = parseInt($("#barang_id").val());
     let karyawan_id = parseInt($("#karyawan_id").val());
     let keterangan = $("#keterangan").val();
@@ -115,8 +118,8 @@ function Insert() {
             data.status = "DIPERIKSA";
             //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
             $.ajax({
-                url: postUrl,
-                type: "POST",
+                url: baseUrl,
+                type: "PUT",
                 data: JSON.stringify(data), //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
                 contentType: "application/json;charset=utf-8"
             }).done((result) => {
@@ -140,4 +143,80 @@ function Insert() {
             })
         
     }
+}
+
+function Edit(id) {
+    let data = {};
+    //Get Data saat render
+    $.ajax({
+        url: baseUrl + `/${id}`,
+        type: "GET",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result
+        $("#barang_id").val(data.barang_Id);
+        $("#karyawan_id").val(data.karyawan_Id);
+        $("#keterangan").val(data.keterangan);
+        $("#tanggal_terima").val(new Date(data.tanggal_Terima).toISOString().substring(0, 10));
+        $("#jumlah").val(data.jumlah);
+        console.log(result);
+    }).fail((error) => {
+        console.log(error);
+    })
+}
+
+function Delete(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: baseUrl + `/${id}`,
+                type: "Delete",
+                contentType: "application/json;charset=utf-8"
+            }).done((result) => {
+                //buat alert pemberitahuan jika success
+                Swal.fire(
+                    'Berhasil',
+                    'Riwayat sukses dihapus',
+                    'success'
+                )
+                table.ajax.reload();
+                console.log(result);
+            }).fail((error) => {
+                //alert pemberitahuan jika gagal
+                Swal.fire(
+                    'Oops',
+                    'Riwayat gagal dihapus',
+                    'error'
+                )
+                console.log(error);
+
+            })
+        }
+    })
+}
+
+function formatRupiah(price) {
+    if (price === 0 || price === null) {
+        return price;
+    } else {
+        let rupiah = "";
+        let angkarev = price.toString().split("").reverse().join("");
+        for (let i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+        return (
+            "Rp " +
+            rupiah
+                .split("", rupiah.length - 1)
+                .reverse()
+                .join("")
+        );
+    }
+    return rupiah
 }

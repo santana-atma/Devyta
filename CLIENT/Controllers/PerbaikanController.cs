@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,34 @@ namespace CLIENT.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null && role.Equals("Staff"))
+            {
+                return View();
+
+            }
+            return RedirectToAction("Unauthorized", "Error");
         }
         
-        public IActionResult RiwayatPerbaikan()
+        public IActionResult TambahPerbaikan()
         {
-            return View();
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null && role.Equals("Staff"))
+            {
+                return View();
+
+            }
+            return RedirectToAction("Unauthorized", "Error");
+        }
+        public IActionResult Admin()
+        {
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null && role.Equals("Admin"))
+            {
+                return View();
+
+            }
+            return RedirectToAction("Unauthorized", "Error");
         }
     }
 }
