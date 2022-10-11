@@ -79,36 +79,18 @@
                     <span>Pengadaan</span>
                 </a>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" asp-action="Admin" asp-controller="Peminjaman">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Peminjaman</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-action="Index" asp-controller="Peminjaman">Pinjam Aset</a>
-                        <a class="collapse-item" asp-action="RiwayatPeminjaman" asp-controller="Peminjaman">Riwayat Peminjaman</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            </li>      
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                   aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" asp-action="Admin" asp-controller="Perbaikan">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Perbaikan</span>
                 </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-action="Index" asp-controller="Perbaikan">Perbaikan Aset</a>
-                        <a class="collapse-item" asp-action="RiwayatPerbaikan" asp-controller="Perbaikan">Riwayat Perbaikan</a>
-                    </div>
-                </div>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
