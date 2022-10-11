@@ -42,7 +42,8 @@ function confirmDelete(id) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        height: 800,
     }).then((result) => {
         if (result.isConfirmed) {
             deleteUser(id);
