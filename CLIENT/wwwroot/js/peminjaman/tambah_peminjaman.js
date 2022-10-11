@@ -1,7 +1,10 @@
 ﻿let table = null;
+let karyawan;
 let baseUrl = "https://localhost:44307/api/Barang";
 let postUrl = "https://localhost:44307/api/Peminjaman";
+let getKaryawan = "https://localhost:44307/api/karyawan";
 $(document).ready(function () {
+
     table = $('#table_aset').DataTable({
         ajax: {
             url: baseUrl,
@@ -41,10 +44,27 @@ $(document).ready(function () {
             },
         ]
     });
+
+    $.ajax({
+        url: getKaryawan,
+        type: "GET",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result;
+        console.log(data);
+        data.map((x) => {
+            console.log(x.id)
+            return $('#karyawan_id').append(`<option value="${x.id}">${x.fullName}</option>`);
+        })
+       
+    }).fail((error) => {
+        console.log(error);
+    })
+
 });
 
 $('#peminjamanModal').on('hidden.bs.modal', function () {
-    $("#karyawan_id").val("");
+    $("#karyawan_id").val(0);
     $("#tanggal_pinjam").val("");
     $("#tanggal_kembali").val("");
     $("#jumlah").val("");
@@ -62,7 +82,7 @@ function validasiInputan(obj) {
         $("#errorBarang_id").html("ID Barang tidak boleh kosong")
         error++;
     }
-    if (obj.karyawan_id == 0 || obj.karyawan_id == NaN) {
+    if (obj.karyawan_id == "" || obj.karyawan_id == NaN) {
         $("#errorKaryawan_id").html("Id Karyawan tidak boleh kosong")
         error++;
     }
@@ -80,6 +100,7 @@ function validasiInputan(obj) {
 function Peminjaman(id) {
     $("#barang_id").val(id);
 }
+
 
 function Insert() {
     const default_tanggal_kembali = "1999-01-01";

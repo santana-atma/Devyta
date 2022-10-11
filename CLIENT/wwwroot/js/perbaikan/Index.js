@@ -45,10 +45,14 @@ $(document).ready(function () {
             {
                 data: "tanggal_Selesai",
                 render: function (data, type, row) {
-                    return new Date(row.tanggal_Selesai).toDateString();
+                    if (row.tanggal_Selesai == "1999-01-01T00:00:00") {
+                        return `-`
+                    } else {
+                        return new Date(row.tanggal_Selesai).toDateString();
+                    }
                 }
             },
-            
+
 
             {
                 data: "",
@@ -106,42 +110,42 @@ function Update() {
     let obj = { keterangan, tanggal_Terima, jumlah };
     let validation = validasiInputan(obj)
     if (validation == 0) {
-       
-            let data = {};
 
-            data.barang_Id = barang_id;
-            data.karyawan_Id = karyawan_id;
-            data.keterangan = keterangan;
-            data.tanggal_Terima = new Date(tanggal_Terima).toISOString().substring(0, 10);
-            data.tanggal_Selesai = tanggal_Selesai;
-            data.jumlah = jumlah;
-            data.status = "DIPERIKSA";
-            //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-            $.ajax({
-                url: baseUrl,
-                type: "PUT",
-                data: JSON.stringify(data), //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
-                contentType: "application/json;charset=utf-8"
-            }).done((result) => {
-                //buat alert pemberitahuan jika success
-                Swal.fire(
-                    'Berhasil',
-                    'Perbaikan sukses ditambahkan',
-                    'success'
-                )
-                table.ajax.reload();
-                $('#perbaikanModal').modal('toggle');
-                console.log(result);
-            }).fail((error) => {
-                //alert pemberitahuan jika gagal
-                Swal.fire(
-                    'Gagal',
-                    'Perbaikan gagal ditambahkan',
-                    'error'
-                )
-                console.log(error);
-            })
-        
+        let data = {};
+
+        data.barang_Id = barang_id;
+        data.karyawan_Id = karyawan_id;
+        data.keterangan = keterangan;
+        data.tanggal_Terima = new Date(tanggal_Terima).toISOString().substring(0, 10);
+        data.tanggal_Selesai = tanggal_Selesai;
+        data.jumlah = jumlah;
+        data.status = "DIPERIKSA";
+        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        $.ajax({
+            url: baseUrl,
+            type: "PUT",
+            data: JSON.stringify(data), //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+            contentType: "application/json;charset=utf-8"
+        }).done((result) => {
+            //buat alert pemberitahuan jika success
+            Swal.fire(
+                'Berhasil',
+                'Perbaikan sukses ditambahkan',
+                'success'
+            )
+            table.ajax.reload();
+            $('#perbaikanModal').modal('toggle');
+            console.log(result);
+        }).fail((error) => {
+            //alert pemberitahuan jika gagal
+            Swal.fire(
+                'Gagal',
+                'Perbaikan gagal ditambahkan',
+                'error'
+            )
+            console.log(error);
+        })
+
     }
 }
 

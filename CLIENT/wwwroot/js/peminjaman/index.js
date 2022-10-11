@@ -27,9 +27,13 @@ $(document).ready(function () {
                 }
             },
             {
-                data: "tanggal_kembali",
+                data: "tanggal_Kembali",
                 render: function (data, type, row) {
-                    return new Date(row.tanggal_Kembali).toDateString();
+                    if (row.tanggal_Kembali == "1999-01-01T00:00:00") {
+                        return `-`
+                    } else {
+                        return new Date(row.tanggal_Kembali).toDateString();
+                    }
                 }
             },
             {
