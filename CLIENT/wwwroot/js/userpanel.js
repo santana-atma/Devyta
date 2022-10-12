@@ -47,7 +47,8 @@ function confirmDelete(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             deleteUser(id);
-            getDbUser();
+            //getDbUser();
+            location.reload();
             Swal.fire(
                 'Deleted!',
                 'Akun ini sudah dihapus !.',
