@@ -11,6 +11,7 @@ namespace API.ViewModels
         public string Fullname { get; set; }
         public string Alamat { get; set; }
         public string Telp { get; set; }
+        public string Departemen { get; set; }
         public int Role { get; set; }
 
     }

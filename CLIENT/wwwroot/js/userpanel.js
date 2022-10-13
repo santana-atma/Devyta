@@ -11,10 +11,9 @@
             <td>${val.id}</td>
             <td>${val.fullName}</td>
             <td>${val.email}</td>
-            <td>${val.alamat}</td>
-            <td>${val.telp}</td>
+            <td>${val.Departemen}</td>
             <td>${val.role}</td>
-            <td>${val.role == "Admin" ? "" :  deletebtn }</td>
+            <td>${val.role == "Admin" ? "" : editbtn + deletebtn }</td>
 
         </tr>`;
             $("#userData").html(test);
@@ -42,13 +41,12 @@ function confirmDelete(id) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes',
-        height: 800,
+        confirmButtonText: 'Yes'
     }).then((result) => {
         if (result.isConfirmed) {
             deleteUser(id);
-            //getDbUser();
-            location.reload();
+            getDbUser();
+            //location.reload();
             Swal.fire(
                 'Deleted!',
                 'Akun ini sudah dihapus !.',

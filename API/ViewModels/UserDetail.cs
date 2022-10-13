@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace API.ViewModels
 {
-    public class ResponseLogin
+    public class UserDetail
     {
         public int Id { get; set; }
-        public string FullName { get; set; }
+        public string Fullname { get; set; }
         public string Email { get; set; }
         public string Telp { get; set; }
         public string Alamat { get; set; }
