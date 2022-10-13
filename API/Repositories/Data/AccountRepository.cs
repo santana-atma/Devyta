@@ -101,6 +101,11 @@ namespace API.Repositories.Data
 
         public bool Register(RegisterAccount registerAccount)
         {
+            //
+            if (registerAccount.Role.Equals(3))
+            {
+                registerAccount.Password = "@@@123456@@@";  //seharusnya karyawan tdk bisa akses aplikasi/ login
+            }
             var transaction = myContext.Database.BeginTransaction(); 
             try
             {
@@ -111,6 +116,8 @@ namespace API.Repositories.Data
                     Email = registerAccount.Email,
                     Alamat = registerAccount.Alamat,
                     Telp = registerAccount.Telp,
+                    Departemen = registerAccount.Departemen,
+                    Divisi = registerAccount.Divisi
                 };
                 myContext.Karyawan.Add(dataKaryawan);
                 myContext.SaveChanges();
