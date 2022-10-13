@@ -1,11 +1,20 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "_AdminTemplate";
+    if (ViewData["sessionRole"].ToString() == "Admin")
+    {
+        Layout = "_AdminTemplate";
+
+    }
+    else
+    {
+        Layout = "_StaffTemplate";
+    }
+}
 }
 @* untuk keperluan auth *@
-<input type="hidden" id="role" value="@ViewData["sessionRole"]"/>
-<input type="hidden" id="userId" value="@ViewData["sessionUserId"]"/>
+<input type="hidden" id="role" value="@ViewData["sessionRole"]" />
+<input type="hidden" id="userId" value="@ViewData["sessionUserId"]" />
 <div class="card">
     <div class="card-body">
         <h1>Riwayat Pengadaan</h1>
@@ -127,6 +136,7 @@
     th, td {
         text-align: center !important;
     }
+
     .hide {
         display: none
     }

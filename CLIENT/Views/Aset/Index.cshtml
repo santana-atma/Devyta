@@ -1,13 +1,21 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "_AdminTemplate";
+    if(ViewData["sessionRole"].ToString() == "Admin")
+    {
+        Layout = "_AdminTemplate";
+
+    }
+    else
+    {
+        Layout = "_StaffTemplate";
+    }
 }
 
 <input type="hidden" id="role" value="@ViewData["sessionRole"]" />
 <div class="card shadow">
     <div class="card-body">
-        <h1>List Aset</h1>
+        <h1>Aset</h1>
         @if (@ViewData["sessionRole"] != null && @ViewData["sessionRole"].ToString() == "Admin")
         { 
             <p>
