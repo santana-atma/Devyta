@@ -9,5 +9,6 @@ namespace API.Repositories.Interface
     public interface IDashboardRepository
     {
          List<ResponseDashboard> GetAllData();
+        ResponseTotalAngka GetTotal();
     }
 }

@@ -23,10 +23,21 @@ namespace API.Repositories.Data
             var Top5Aset = myContext.Barang.Take(5).ToList();
             foreach(Barang aset in Top5Aset)
             {
-                var Total_Perbaikan = myContext.RiwayatPerbaikan
-                                        .Where(x => x.Barang_Id == aset.Id && x.Status == "DIPERIKSA").Count();
-                var Total_Peminjaman = myContext.RiwayatPeminjaman
-                                        .Where(x => x.Barang_Id == aset.Id && x.Status == "PINJAM").Count();
+                var DataPerbaikan = myContext.RiwayatPerbaikan
+                                        .Where(x => x.Barang_Id == aset.Id && x.Status == "DIPERIKSA").ToList();
+                var Total_Perbaikan = 0;
+                foreach (RiwayatPerbaikan riwayatPerbaikan in DataPerbaikan)
+                {
+                    Total_Perbaikan += riwayatPerbaikan.Jumlah;
+                }
+
+                var DataPeminjam = myContext.RiwayatPeminjaman
+                                        .Where(x => x.Barang_Id == aset.Id && x.Status == "PINJAM").ToList();
+                int Total_Peminjaman = 0;
+                foreach(RiwayatPeminjaman riwayatPeminjaman in DataPeminjam)
+                {
+                    Total_Peminjaman += riwayatPeminjaman.Jumlah;
+                }
                 ResponseDashboard responseDashboard = new ResponseDashboard()
                 {
                     NamaAset = aset.Nama,
@@ -38,6 +49,22 @@ namespace API.Repositories.Data
             }
             
             return responseDashboards;
+        }
+
+        public ResponseTotalAngka GetTotal()
+        {
+            var totalAset = myContext.Barang.ToList().Count();
+            var totalPeminjaman = myContext.RiwayatPeminjaman.ToList().Count();
+            var totalAdmin = myContext.UserRole.Where(x => x.Role_Id == 1).Count();
+            var totalStaff = myContext.UserRole.Where(x => x.Role_Id == 2).Count();
+            ResponseTotalAngka responseTotalAngka = new ResponseTotalAngka()
+            {
+                TotalAdmin = totalAdmin,
+                TotalStaff = totalStaff,
+                TotalPeminjaman = totalPeminjaman,
+                TotalAset = totalAset
+            };
+            return responseTotalAngka;
         }
     }
 }

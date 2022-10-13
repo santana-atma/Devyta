@@ -23,5 +23,13 @@ namespace API.Controllers
             var data = dashboardRepository.GetAllData();
             return Ok(new { StatusCode = 200, message = "Total info data aset", data = data });
         }
+
+        [HttpGet]
+        [Route("TotalData")]
+        public IActionResult GetTotal()
+        {
+            var data = dashboardRepository.GetTotal();
+            return Ok(new { StatusCode = 200, message = "Total data :", data = data });
+        }
     }
 }
