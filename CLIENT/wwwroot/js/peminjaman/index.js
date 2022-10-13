@@ -9,6 +9,7 @@ $(document).ready(function () {
         },
         columns: [
             {
+                "width": "5%", 
                 "data": null,
                 "render": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;

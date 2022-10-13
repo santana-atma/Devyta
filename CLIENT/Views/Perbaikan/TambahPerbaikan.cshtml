@@ -14,7 +14,7 @@
         </div>
         @*table*@
         <div class="table-responsive">
-            <table class="table" id="table_peminjaman">
+            <table class="table" id="table_peminjaman" style="width:100%;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -49,6 +49,7 @@
 
     </div>
 </div>
+
 
 
 @*modal*@
@@ -91,6 +92,30 @@
     </div>
 </div>
 
+
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
+
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+</style>
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
