@@ -116,8 +116,7 @@ namespace API.Repositories.Data
                     Email = registerAccount.Email,
                     Alamat = registerAccount.Alamat,
                     Telp = registerAccount.Telp,
-                    Departemen = registerAccount.Departemen,
-                    Divisi = registerAccount.Divisi
+                    Departemen = registerAccount.Departemen
                 };
                 myContext.Karyawan.Add(dataKaryawan);
                 myContext.SaveChanges();
