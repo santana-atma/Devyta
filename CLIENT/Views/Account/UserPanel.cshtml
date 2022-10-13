@@ -1,6 +1,14 @@
 ﻿@{
+    @using Microsoft.AspNetCore.Http;
+    @if (Context.Session.GetString("Role") == "Admin")
+    {
+        Layout = "_AdminTemplate";
+    }
+    else
+    {
+        Layout = "_StaffTemplate";
+    }
 }
-
 <!-- Begin Page Content -->
 
 <div class="container-fluid">
@@ -35,6 +43,29 @@
     </div>
 
 </div>
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
+
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+</style>
 
 <!-- User Add Modal-->
 <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="peminjamanModalLabel" aria-hidden="true">
@@ -47,7 +78,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formaddUser">
+                <form id="formaddUser" autocomplete="off">
                     <input type="hidden" value="-1" id="registerUser" />
                     <div class="form-group">
                         <label for="namaKaryawan">Nama Karyawan</label>
@@ -81,8 +112,11 @@
                     <label for="selectRole">Role</label>
                     <select class="form-control form-select-lg mb-3" id="addRole" aria-label=".form-select-lg example" required>
                         <option selected>Pilih Role ...</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Staff</option>
+                        @if (Context.Session.GetString("Role") == "Admin")
+                        {
+                            <option value="1">Admin</option>
+                            <option value="2">Staff</option>
+                        }
                         <option value="3">Karyawan</option>
                     </select>
                 </form>
@@ -100,6 +134,15 @@
 @section Scripts
 {
     <script src="~/vendor/sweetalert2@11.js"></script>
-    <script type="text/javascript" src="@Url.Content("~/js/userpanel.js")"></script>
+
+    @if (Context.Session.GetString("Role") == "Staff")
+    {
+        <script type="text/javascript" src="@Url.Content("~/js/userpanel_staff.js")"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="@Url.Content("~/js/userpanel.js")"></script>
+    }
+
 
 }

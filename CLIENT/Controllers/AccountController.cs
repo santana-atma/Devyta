@@ -69,7 +69,7 @@ namespace CLIENT.Controllers
         public IActionResult UserPanel()
         {
             var role = HttpContext.Session.GetString("Role");
-            if (role != null && role.Equals("Admin"))
+            if (role != null)
             {
                 return View("UserPanel","Account");
 
