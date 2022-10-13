@@ -2,7 +2,7 @@ let table = null;
 let baseUrl = "https://localhost:44307/api/Barang";
 let role = $("#role").val();
 let isAdmin = role.toLowerCase() == "admin";
-
+let totalAset = 0;
 $(document).ready(function () {
     table = $('#table_aset').DataTable({
         ajax: {
@@ -281,3 +281,4 @@ function formatRupiah(price) {
     }
     return rupiah
 }
+

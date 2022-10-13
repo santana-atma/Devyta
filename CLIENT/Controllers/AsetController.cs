@@ -15,7 +15,13 @@ namespace CLIENT.Controllers
             var UserId = HttpContext.Session.GetString("UserId");
             ViewData["sessionRole"] = role;
             ViewData["sessionUserId"] = UserId;
-            return View();
+            if (role != null && (role.Equals("Admin") || role.Equals("Staff")))
+            {
+                return View();
+
+            }
+            return RedirectToAction("Unauthorized", "Error");
+         
         }
 
      

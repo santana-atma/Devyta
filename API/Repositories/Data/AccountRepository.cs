@@ -89,7 +89,9 @@ namespace API.Repositories.Data
                     Id = data.User_Id,
                     FullName = data.User.Karyawan.Fullname,
                     Email = data.User.Karyawan.Email,
-                    Role = data.Role.Nama
+                    Role = data.Role.Nama,
+                    Telp = data.User.Karyawan.Telp,
+                    Alamat = data.User.Karyawan.Alamat
 
                 };
                 return responseLogin;
