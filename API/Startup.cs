@@ -70,6 +70,7 @@ namespace API
             services.AddScoped<AccountRepository>();
             services.AddScoped<BarangRepository>();
             services.AddScoped<PengadaanRepository>();
+            services.AddScoped<DashboardRepository>();
             #endregion Dependency Injection
             services.AddDistributedMemoryCache();
             services.AddSession();

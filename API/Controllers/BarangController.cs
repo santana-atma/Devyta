@@ -53,6 +53,7 @@ namespace API.Controllers
             if (result > 0)
                 return Ok(new { statusCode = 200, message = "Barang berhasil ditambah" });
             return BadRequest(new { statusCode = 400, message = "Barang gagal ditambah" });
+            
         }
         // Put: api/Barang/5
         [HttpPut("{id}")]

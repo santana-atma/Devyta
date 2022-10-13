@@ -56,16 +56,14 @@
                         <div class="card-body">
                             <p class="mb-4">Total Aset</p>
                             <p class="fs-30 mb-2" id="totalAset">0</p>
-                            @*<p>10.00% (30 days)</p>*@
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
                     <div class="card card-dark-blue">
                         <div class="card-body">
-                            <p class="mb-4">Total Peminjaman</p>
-                            <p class="fs-30 mb-2">61344</p>
-                            <p>22.00% (30 days)</p>
+                            <p class="mb-4">Total Peminjam</p>
+                            <p class="fs-30 mb-2" id="totalPeminjam">0</p>
                         </div>
                     </div>
                 </div>
@@ -74,25 +72,35 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                     <div class="card card-light-blue">
                         <div class="card-body">
-                            <p class="mb-4">Number of Meetings</p>
-                            <p class="fs-30 mb-2">34040</p>
-                            <p>2.00% (30 days)</p>
+                            <p class="mb-4">Total Admin</p>
+                            <p class="fs-30 mb-2" id="totalAdmin">0</p>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 stretch-card transparent">
                     <div class="card card-light-danger">
                         <div class="card-body">
-                            <p class="mb-4">Number of Clients</p>
-                            <p class="fs-30 mb-2">47033</p>
-                            <p>0.22% (30 days)</p>
+                            <p class="mb-4">Total Staff</p>
+                            <p class="fs-30 mb-2" id="totalStaff">0</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @* chart start *@
+    <div class="row">
+        <div class="col">
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    @* chart end *@
 </div>
 @section Scripts {
     <script src="~/js/dashboard/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 }
