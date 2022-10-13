@@ -121,6 +121,7 @@ namespace API.Repositories.Data
                 registerAccount.Password = "@@@123456@@@";  //seharusnya karyawan tdk bisa akses aplikasi/ login
             }
             var transaction = myContext.Database.BeginTransaction(); 
+            
             try
             {
                 Karyawan dataKaryawan = new Karyawan
@@ -143,7 +144,7 @@ namespace API.Repositories.Data
 
                 };
                 myContext.User.Add(userData);
-                 myContext.SaveChanges();
+                myContext.SaveChanges();
 
                 UserRole userRoleDataa = new UserRole
                 {

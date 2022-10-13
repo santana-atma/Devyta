@@ -126,30 +126,7 @@
             </div>
         </div>
     </section>
-    <!-- PROJECT -->
-    <!--      <section class="project section-padding" id="project"><div class="container-fluid"><div class="row"></div></div></section> -->
-    <!-- TESTIMONIAL -->
-    <!-- <section class="testimonial section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-5 col-12">
-            <div class="contact-image" data-aos="fade-up">
-              <img src="images/female-avatar.png" class="img-fluid" alt="website">
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-7 col-12">
-            <h4 class="my-5 pt-3" data-aos="fade-up" data-aos-delay="100">Client Testimonials</h4>
-            <div class="quote" data-aos="fade-up" data-aos-delay="200"></div>
-            <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo.</h2>
-            <p data-aos="fade-up" data-aos-delay="400">
-              <strong>Mary Zoe</strong>
-              <span class="mx-1">/</span>
-              <small>Digital Agency (CEO)</small>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section> -->
+
     <footer class="site-footer">
         <div class="container">
             <div class="row">
@@ -174,40 +151,7 @@
                         <i class="fa fa-home mr-2 footer-icon"></i> Jalan Soekrno-Hatta No. 17, Jakarta Timur, Indonesia
                     </p>
                 </div>
-                <!-- <div class="col-lg-4 mx-lg-auto text-center col-md-8 col-12" data-aos="fade-up" data-aos-delay="400">
-                  <p class="copyright-text">Copyright &copy; 2020 Your Company <br>
-                    <a rel="nofollow noopener" href="https://templatemo.com">Design: TemplateMo</a>
-                  </p>
-                </div>
-                <div class="col-lg-4 mx-lg-auto col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
-                  <ul class="footer-link">
-                    <li>
-                      <a href="#">Stories</a>
-                    </li>
-                    <li>
-                      <a href="#">Work with us</a>
-                    </li>
-                    <li>
-                      <a href="#">Privacy</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-3 mx-lg-auto col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
-                  <ul class="social-icon">
-                    <li>
-                      <a href="#" class="fa fa-instagram"></a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-twitter"></a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-dribbble"></a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-behance"></a>
-                    </li>
-                  </ul>
-                </div> -->
+
             </div>
         </div>
     </footer>
@@ -218,5 +162,29 @@
     <script src="~/landing-page/js/owl.carousel.min.js"></script>
     <script src="~/landing-page/js/smoothscroll.js"></script>
     <script src="~/landing-page/js/custom.js"></script>
+    <script src="~/landing-page/js/sweetalert2.all.min.js"></script>
+    @*<script>
+        Swal.fire({
+            title: 'Login Form',
+            html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
+  <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+            confirmButtonText: 'Sign in',
+            focusConfirm: false,
+            preConfirm: () => {
+                const login = Swal.getPopup().querySelector('#login').value
+                const password = Swal.getPopup().querySelector('#password').value
+                if (!login || !password) {
+                    Swal.showValidationMessage(`Please enter login and password`)
+                }
+                return { login: login, password: password }
+            }
+        }).then((result) => {
+            Swal.fire(`
+    Login: ${result.value.login}
+    Password: ${result.value.password}
+  `.trim())
+        })
+    </script>*@
+
 </body>
 </html>

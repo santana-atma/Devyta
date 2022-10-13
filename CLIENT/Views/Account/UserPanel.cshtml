@@ -1,19 +1,20 @@
-﻿@{ 
+﻿@{
 }
 
 <!-- Begin Page Content -->
+
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">User Control Panel</h1>
-
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        @*<div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-            </div>*@
         <div class="card-body">
+            <h1>User Control Panel</h1>
+            <p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUser">
+                    Tambah User Baru
+                </button>
+            </p>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -35,33 +36,70 @@
 
 </div>
 
+<!-- User Add Modal-->
+<div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="peminjamanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formaddUser">
+                    <input type="hidden" value="-1" id="registerUser" />
+                    <div class="form-group">
+                        <label for="namaKaryawan">Nama Karyawan</label>
+                        <input type="text" class="form-control" id="addNama" required="true">
+                        <span class="text-danger text-sm-left" id="erorNama"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="karyawan_id">Email</label>
+                        <input type="text" class="form-control" id="addEmail" required>
+                        <span class="text-danger text-sm-left" id="erorEmail"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="karyawan_id">Alamat</label>
+                        <input type="text" class="form-control" id="addAlamat" required>
+                        <span class="text-danger text-sm-left" id="erorAlamat"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="karyawan_id">Telepon</label>
+                        <input type="number" class="form-control" id="addTelepon" required>
+                        <span class="text-danger text-sm-left" id="erorTelepon"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="karyawan_id">Departemen</label>
+                        <input type="text" class="form-control" id="addDepartemen" required>
+                        <span class="text-danger text-sm-left" id="erorDepartemen"></span>
+                    </div>
+                    <div class="form-group" required>
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" id="addPassword" placeholder="Password">
+                    </div>
+                    <label for="selectRole">Role</label>
+                    <select class="form-control form-select-lg mb-3" id="addRole" aria-label=".form-select-lg example" required>
+                        <option selected>Pilih Role ...</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Staff</option>
+                        <option value="3">Karyawan</option>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="InsertUser()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- /.container-fluid -->
 <!-- End of Main Content -->
 @section Scripts
 {
-    <!-- User Edit Modal-->
-    <div class="modal fade" id="edituserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User </h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Keluar dari akun ini ?.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="">Simpan</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/vendor/sweetalert2@11.js"></script>
     <script type="text/javascript" src="@Url.Content("~/js/userpanel.js")"></script>
 
 }

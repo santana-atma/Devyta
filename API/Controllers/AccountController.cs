@@ -27,6 +27,13 @@ namespace API.Controllers
         [HttpPost("~/api/register")]
         public IActionResult RegisterAccount(RegisterAccount account)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+                return BadRequest(new { message = errors, statusCode = 400 });
+            }
             var data = accountRepository.Register(account);
             if (data)
             {
