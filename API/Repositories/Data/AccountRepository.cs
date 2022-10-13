@@ -33,6 +33,7 @@ namespace API.Repositories.Data
                     FullName = item.User.Karyawan.Fullname,
                     Email = item.User.Karyawan.Email,
                     Alamat = item.User.Karyawan.Alamat,
+                    Departemen = item.User.Karyawan.Departemen,
                     Telp = item.User.Karyawan.Telp,
                     Role = item.Role.Nama
 
@@ -42,9 +43,22 @@ namespace API.Repositories.Data
             return dataKaryawan;
         }
 
-        public Karyawan Get(int id)
+        public Object Get(int id)
         {
-            var data = myContext.Karyawan.Find(id);
+            var karyawan = myContext.Karyawan.Find(id);
+            var userrole = myContext.UserRole.Find(id);
+            var role = myContext.Role.Find(userrole.Role_Id);
+            var data = new ResponseLogin()
+            {
+                Id = karyawan.Id,
+                FullName = karyawan.Fullname,
+                Email = karyawan.Email,
+                Alamat = karyawan.Alamat,
+                Telp = karyawan.Telp,
+                Departemen = karyawan.Departemen,
+                Role = role.Nama
+
+            };
             return data;
         }
 
@@ -101,6 +115,11 @@ namespace API.Repositories.Data
 
         public bool Register(RegisterAccount registerAccount)
         {
+            //
+            if (registerAccount.Role.Equals(3))
+            {
+                registerAccount.Password = "@@@123456@@@";  //seharusnya karyawan tdk bisa akses aplikasi/ login
+            }
             var transaction = myContext.Database.BeginTransaction(); 
             try
             {
@@ -111,6 +130,7 @@ namespace API.Repositories.Data
                     Email = registerAccount.Email,
                     Alamat = registerAccount.Alamat,
                     Telp = registerAccount.Telp,
+                    Departemen = registerAccount.Departemen
                 };
                 myContext.Karyawan.Add(dataKaryawan);
                 myContext.SaveChanges();
