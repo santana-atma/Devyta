@@ -71,15 +71,6 @@ function validasiInputan(obj) {
         $("#errorNama").html("")
         error--;
     }
-    //if ($("#formInputNamaBarang").hasClass("hide") && obj.namas == "") {
-    //    $("#errorNamas").html("Nama tidak boleh kosong")
-    //    error++;
-    //}
-    //else
-    //{
-    //    $("#errorNamas").html("")
-    //    error--;
-    //}
     if (obj.satuan == "") {
         $("#errorSatuan").html("Satuan tidak boleh kosong")
         error++;
