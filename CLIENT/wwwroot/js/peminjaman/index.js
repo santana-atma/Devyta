@@ -1,5 +1,7 @@
 ﻿let table = null;
 let baseUrl = "https://localhost:44307/api/Peminjaman";
+let getKaryawan = "https://localhost:44307/api/karyawan";
+let getAset = "https://localhost:44307/api/barang";
 $(document).ready(function () {
     table = $('#table_peminjaman').DataTable({
         ajax: {
@@ -56,6 +58,38 @@ $(document).ready(function () {
         ],
         
     });
+
+    $.ajax({
+        url: getKaryawan,
+        type: "GET",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result;
+        console.log(data);
+        data.map((x) => {
+            console.log(x.id)
+            return $('#karyawan_id').append(`<option value="${x.id}">${x.fullName}</option>`);
+        })
+
+    }).fail((error) => {
+        console.log(error);
+    });
+
+    $.ajax({
+        url: getAset,
+        type: "GET",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result;
+        console.log(data);
+        data.map((x) => {
+            console.log(x.id)
+            return $('#barang_id').append(`<option value="${x.id}">${x.nama}</option>`);
+        })
+
+    }).fail((error) => {
+        console.log(error);
+    })
 });
 
 function validasiInputan(obj) {
