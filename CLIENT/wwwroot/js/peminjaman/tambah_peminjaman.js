@@ -13,6 +13,7 @@ $(document).ready(function () {
         },
         columns: [
             {
+                "width": "5%", 
                 "data": null,
                 "render": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
@@ -22,21 +23,24 @@ $(document).ready(function () {
                 data: "nama"
             },
             {
+                "width": "10%", 
                 data: "stok"
             },
             {
+                "width": "10%", 
                 data: "satuan"
             },
             {
+                "width": "10%", 
                 data: "",
                 render: function (data, type, row) {
                     const isOnStock = row.stok < 1 && 'disabled';
-                    return `<button type="button" 
+                    return `<buttons
                             class="btn btn-primary"
                             data-toggle="modal" ${isOnStock}
                             data-target="#peminjamanModal"
                             onclick="Peminjaman('${row.id}');">
-                                Pinjam
+                                <i class="fas fa-plus"></i>
                                 </button>`
 
 
