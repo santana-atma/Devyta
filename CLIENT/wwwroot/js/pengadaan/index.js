@@ -58,20 +58,28 @@ function validasiInputan(obj) {
     if ($("#formInputNamaBarang").hasClass("hide") == false && obj.nama == "") {
         $("#errorNama").html("Nama tidak boleh kosong")
         error++;
+        console.log(error);
+
+    }
+    else if ($("#formInputNamaBarang").hasClass("hide") && obj.namas == "") {
+        $("#errorNamas").html("Nama tidak boleh kosong")
+        error++;
+        console.log(error);
+
     }
     else {
         $("#errorNama").html("")
         error--;
     }
-    if ($("#formInputNamaBarang").hasClass("hide") && obj.namas == "") {
-        $("#errorNamas").html("Nama tidak boleh kosong")
-        error++;
-    }
-    else
-    {
-        $("#errorNamas").html("")
-        error--;
-    }
+    //if ($("#formInputNamaBarang").hasClass("hide") && obj.namas == "") {
+    //    $("#errorNamas").html("Nama tidak boleh kosong")
+    //    error++;
+    //}
+    //else
+    //{
+    //    $("#errorNamas").html("")
+    //    error--;
+    //}
     if (obj.satuan == "") {
         $("#errorSatuan").html("Satuan tidak boleh kosong")
         error++;
@@ -88,7 +96,11 @@ function validasiInputan(obj) {
         $("#errorTanggal").html("")
         error--;
     }
-    if (obj.jumlah == 0 || obj.jumlah == NaN) {
+    if (obj.jumlah < 0) {
+        $("#errorJumlah").html("Jumlah tidak boleh kurang dari 0")
+        error++;
+    }
+    else if (isNaN(obj.jumlah)) {
         $("#errorJumlah").html("Jumlah tidak boleh kosong")
         error++;
     }
@@ -96,6 +108,7 @@ function validasiInputan(obj) {
         $("#errorJumlah").html("")
         error--;
     }
+
     if (obj.supplier == "") {
         $("#errorSupplier").html("Supplier tidak boleh kosong")
         error++;
@@ -104,8 +117,13 @@ function validasiInputan(obj) {
         $("#errorSupplier").html("")
         error--;
     }
-    if (obj.harga == "" || obj.harga == NaN) {
+    //validasi harga
+    if (isNaN(obj.harga)) {
         $("#errorHarga").html("Harga tidak boleh kosong")
+        error++;
+    }
+    else if (obj.harga < 0) {
+        $("#errorHarga").html("Harga tidak boleh kurang dari 0")
         error++;
     }
     else {
@@ -156,6 +174,7 @@ function Insert()
             else if (namas == "") {
                 data.nama = nama
             }
+            
             data.satuan = $("#satuan").val();
             data.tanggal = tanggal;
             data.supplier = supplier;
@@ -226,8 +245,6 @@ function Insert()
     }
     else {
         console.log("total eror" + validation);
-        console.log(nama)
-        console.log(namas)
         Swal.fire(
             'Gagal',
             'Inputan masih belum lengkap',
@@ -255,6 +272,7 @@ function Edit(id)
         $("#jumlah").val(data.jumlah)
         $("#formInputNamaBarang").removeClass("hide")
         $("#nama").prop('disabled', true);
+        $("#errorNama").html("")
         $(".close-list-barang").css("display", "none")
         $("#formInputNamaBarang").css("display", "flex")
         $("#selectBarangs").css("display", "none")
@@ -350,9 +368,11 @@ function ToggleInputBarang()
     if ($("#formInputNamaBarang").hasClass("hide")) {
         $("#formInputNamaBarang").css("display", "flex")
         $("#selectBarangs").css("display", "none")
+         $("#list-barang").val("");
         $("#formInputNamaBarang").removeClass("hide")
     }
     else {
+        $("#nama").val("");
         $("#formInputNamaBarang").css("display", "none")
         $("#selectBarangs").css("display", "flex")
         $("#formInputNamaBarang").addClass("hide")

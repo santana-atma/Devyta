@@ -51,6 +51,12 @@ namespace API.Repositories.Data
 
         public int Post(BarangVM barang)
         {
+            var listAset = myContext.Barang.ToList();
+            foreach(Barang aset in listAset)
+            {
+                if (aset.Nama.ToLower().Equals(barang.Nama.ToLower()))
+                    return -1;
+            }
             myContext.Barang.Add(new Barang { Nama = barang.Nama, Satuan = barang.Satuan });
             var result = myContext.SaveChanges();
             return result;

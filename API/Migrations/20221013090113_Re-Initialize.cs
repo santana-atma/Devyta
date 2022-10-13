@@ -31,7 +31,8 @@ namespace API.Migrations
                     Fullname = table.Column<string>(nullable: true),
                     Alamat = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Telp = table.Column<string>(nullable: true)
+                    Telp = table.Column<string>(nullable: true),
+                    Departemen = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,31 +76,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiwayatPerbaikan",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Barang_Id = table.Column<int>(nullable: false),
-                    Keterangan = table.Column<string>(nullable: true),
-                    Biaya = table.Column<double>(nullable: false),
-                    Jumlah = table.Column<int>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    Tanggal_Terima = table.Column<DateTime>(nullable: false),
-                    Tanggal_Selesai = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RiwayatPerbaikan", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RiwayatPerbaikan_Barang_Barang_Id",
-                        column: x => x.Barang_Id,
-                        principalTable: "Barang",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RiwayatPeminjaman",
                 columns: table => new
                 {
@@ -123,6 +99,38 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RiwayatPeminjaman_Karyawan_Karyawan_Id",
+                        column: x => x.Karyawan_Id,
+                        principalTable: "Karyawan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RiwayatPerbaikan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Barang_Id = table.Column<int>(nullable: false),
+                    Karyawan_Id = table.Column<int>(nullable: false),
+                    Keterangan = table.Column<string>(nullable: true),
+                    Biaya = table.Column<double>(nullable: false),
+                    Jumlah = table.Column<int>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
+                    Tanggal_Terima = table.Column<DateTime>(nullable: false),
+                    Tanggal_Selesai = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RiwayatPerbaikan", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RiwayatPerbaikan_Barang_Barang_Id",
+                        column: x => x.Barang_Id,
+                        principalTable: "Barang",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RiwayatPerbaikan_Karyawan_Karyawan_Id",
                         column: x => x.Karyawan_Id,
                         principalTable: "Karyawan",
                         principalColumn: "Id",
@@ -192,6 +200,11 @@ namespace API.Migrations
                 name: "IX_RiwayatPerbaikan_Barang_Id",
                 table: "RiwayatPerbaikan",
                 column: "Barang_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RiwayatPerbaikan_Karyawan_Id",
+                table: "RiwayatPerbaikan",
+                column: "Karyawan_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRole_Role_Id",
