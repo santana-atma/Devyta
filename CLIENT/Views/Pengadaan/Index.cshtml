@@ -8,7 +8,7 @@
 <input type="hidden" id="userId" value="@ViewData["sessionUserId"]"/>
 <div class="card">
     <div class="card-body">
-        <h1>List Riwayat Pengadaan</h1>
+        <h1>Riwayat Pengadaan</h1>
         @if (@ViewData["sessionRole"] != null && @ViewData["sessionRole"].ToString() == "Admin")
         {
             <p>
@@ -54,11 +54,22 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" value="-1" id="idPengadaan" />
-                    <div class="form-group">
-                        <label for="nama">Nama Aset</label>
-                        <input type="text" class="form-control" id="nama">
-                        <span class="text-danger text-sm-left" id="errorNama"></span>
+                    <label for="nama">Nama Aset</label>
+                    <div class="input-group hide mb-3" id="formInputNamaBarang">
+                        <input type="text" class="form-control" id="nama" placeholder="input aset baru...">
+                        <button type="button" class="close close-list-barang" onclick="ToggleInputBarang()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <div class="input-group mb-3" id="selectBarangs">
+                        <select class="form-control" id="list-barang">
+                            <option selected>Choose...</option>
+                        </select>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="ToggleInputBarang()">Add new</button>
+                    </div>
+                    <span class="text-danger text-sm-left" id="errorNama"></span>
+                    <span class="text-danger text-sm-left" id="errorNamas"></span>
+
                     <div class="form-group">
                         <label for="nama">Tanggal</label>
                         <input type="date" class="form-control" id="tanggal">
@@ -84,17 +95,42 @@
                         <input type="number" class="form-control" id="harga" min="0">
                         <span class="text-danger text-sm-left" id="errorHarga"></span>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
 
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+    .hide {
+        display: none
+    }
+</style>
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

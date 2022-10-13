@@ -3,7 +3,7 @@ let baseUrl = "https://localhost:44307/api/RiwayatPengadaan";
 let role = $("#role").val();
 let isAdmin = role.toLowerCase() == "admin";
 let UserId = $("#userId").val();
-console.log(isAdmin);
+
 $(document).ready(function () {
     table = $('#table_pengadaan').DataTable({
         ajax: {
@@ -49,33 +49,68 @@ $(document).ready(function () {
             }
         ]
     });
+    getNamaBarang()
+
 });
 
 function validasiInputan(obj) {
-    let error = 0;
-    if (obj.nama == "") {
+    let error = 6;
+    if ($("#formInputNamaBarang").hasClass("hide") == false && obj.nama == "") {
         $("#errorNama").html("Nama tidak boleh kosong")
         error++;
+    }
+    else {
+        $("#errorNama").html("")
+        error--;
+    }
+    if ($("#formInputNamaBarang").hasClass("hide") && obj.namas == "") {
+        $("#errorNamas").html("Nama tidak boleh kosong")
+        error++;
+    }
+    else
+    {
+        $("#errorNamas").html("")
+        error--;
     }
     if (obj.satuan == "") {
         $("#errorSatuan").html("Satuan tidak boleh kosong")
         error++;
     }
+    else {
+        $("#errorSatuan").html("")
+        error--;
+    }
     if (obj.tanggal == "") {
         $("#errorTanggal").html("Tanggal tidak boleh kosong")
         error++;
+    }
+    else {
+        $("#errorTanggal").html("")
+        error--;
     }
     if (obj.jumlah == 0 || obj.jumlah == NaN) {
         $("#errorJumlah").html("Jumlah tidak boleh kosong")
         error++;
     }
+    else {
+        $("#errorJumlah").html("")
+        error--;
+    }
     if (obj.supplier == "") {
         $("#errorSupplier").html("Supplier tidak boleh kosong")
         error++;
     }
+    else {
+        $("#errorSupplier").html("")
+        error--;
+    }
     if (obj.harga == "" || obj.harga == NaN) {
         $("#errorHarga").html("Harga tidak boleh kosong")
         error++;
+    }
+    else {
+        $("#errorHarga").html("")
+        error--;
     }
     return error;
 }
@@ -83,6 +118,7 @@ function validasiInputan(obj) {
 $('#pengadaanModal').on('hidden.bs.modal', function () {
     $("#idPengadaan").val(-1);
     $("#nama").val("");
+    $("#namas").val("");
     $("#tanggal").val("");
     $("#supplier").val("");
     $("#jumlah").val("");
@@ -94,29 +130,38 @@ $('#pengadaanModal').on('hidden.bs.modal', function () {
     $("#errorTanggal").html("")
     $("#errorJumlah").html("")
     $("#errorHarga").html("")
+    $("#formInputNamaBarang").css("display", "none")
+    $("#selectBarangs").css("display", "flex")
 });
 
 function Insert()
 {
     let nama = $("#nama").val();
+    let namas = $("#list-barang").val();
     let satuan = $("#satuan").val();
     let tanggal = $("#tanggal").val();
     let supplier = $("#supplier").val();
     let jumlah = parseInt($("#jumlah").val());
     let harga = parseFloat($("#harga").val());
     let id = $("#idPengadaan").val();
-    let obj = { nama, satuan, tanggal, supplier, jumlah, harga };
+    let obj = { nama, namas, satuan, tanggal, supplier, jumlah, harga };
     let validation = validasiInputan(obj)
-    if (validation == 0) {
+    if (validation <= 0) {
         if (id == -1) { //kalo id -1 berarti add
             let data = {};
             data.petugasId = parseInt(UserId);
-            data.nama = $("#nama").val();
+            if (nama == "") {
+                data.nama = namas
+            }
+            else if (namas == "") {
+                data.nama = nama
+            }
             data.satuan = $("#satuan").val();
             data.tanggal = tanggal;
             data.supplier = supplier;
             data.jumlah = jumlah;
             data.harga = harga;
+            console.log(data)
             //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
             $.ajax({
                 url: baseUrl,
@@ -145,14 +190,13 @@ function Insert()
             })
         } else { //kalo id tidak -1 berarti update
             let data = {};
-            //ini masih hardcode
             data.petugasId = parseInt(UserId);
-            data.nama = $("#nama").val();
             data.satuan = $("#satuan").val();
             data.tanggal = tanggal;
             data.supplier = supplier;
             data.jumlah = jumlah;
             data.harga = harga;
+            console.log(data)
             //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
             $.ajax({
                 url: baseUrl + `/${id}`,
@@ -180,6 +224,16 @@ function Insert()
             })
         }
     }
+    else {
+        console.log("total eror" + validation);
+        console.log(nama)
+        console.log(namas)
+        Swal.fire(
+            'Gagal',
+            'Inputan masih belum lengkap',
+            'error'
+        )
+    }
 }
 
 function Edit(id)
@@ -199,6 +253,11 @@ function Edit(id)
         $("#tanggal").val(new Date(data.tanggal).toISOString().substring(0, 10))
         $("#harga").val(data.harga)
         $("#jumlah").val(data.jumlah)
+        $("#formInputNamaBarang").removeClass("hide")
+        $("#nama").prop('disabled', true);
+        $(".close-list-barang").css("display", "none")
+        $("#formInputNamaBarang").css("display", "flex")
+        $("#selectBarangs").css("display", "none")
         console.log(result)
     }).fail((error) => {
         console.log(error);
@@ -260,4 +319,43 @@ function formatRupiah(price)
         );
     }
     return rupiah
+}
+
+function getNamaBarang() {
+    $.ajax({
+        url: "https://localhost:44307/api/Barang",
+        type: "Get",
+        contentType: "application/json;charset=utf-8"
+    }).done((result) => {
+        let { data } = result;
+        console.log(data)
+        let renderOption = mapOptionNamaBarang(data)
+        $("#list-barang").html(renderOption)
+    }).fail((error) => {
+        console.log(error);
+    })
+}
+
+function mapOptionNamaBarang(data)
+{
+    let option = `<option value="">Pilih Aset</option>`
+    data.forEach((item) => {
+        option += `<option value=${item.nama}>${item.nama}</option>`
+    })
+    return option
+}
+
+function ToggleInputBarang()
+{
+    if ($("#formInputNamaBarang").hasClass("hide")) {
+        $("#formInputNamaBarang").css("display", "flex")
+        $("#selectBarangs").css("display", "none")
+        $("#formInputNamaBarang").removeClass("hide")
+    }
+    else {
+        $("#formInputNamaBarang").css("display", "none")
+        $("#selectBarangs").css("display", "flex")
+        $("#formInputNamaBarang").addClass("hide")
+    }
+ 
 }
