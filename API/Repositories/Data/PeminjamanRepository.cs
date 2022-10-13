@@ -104,50 +104,90 @@ namespace API.Repositories.Data
                 }
                 else
                 {
-                    //Update barang_id atau karyawan_id
+                    //Iika Update karyawan_id
                     if (riwayatPeminjaman.Karyawan_Id != peminjaman.Karyawan_Id)
                     {
+                        var isExist = _context.RiwayatPeminjaman.Find(peminjaman.Karyawan_Id);
+                        //if (isExist.Barang_Id==peminjaman.Barang_Id)
+                        //{
+                        //    return 0;
+                        //}
                         riwayatPeminjaman.Karyawan_Id = peminjaman.Karyawan_Id;
                     }
 
                     //Jika mengubah barang yg dipinjam, tetapi jumlahnya tetap
                     if (riwayatPeminjaman.Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah == peminjaman.Jumlah)
                     {
-                        riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
+                        //riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
 
                         var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
                         //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                         barang.Stok += riwayatPeminjaman.Jumlah;
                         _context.Barang.Update(barang);
-                        result += _context.SaveChanges(); result += _context.SaveChanges();
+                        result += _context.SaveChanges();
                         //Ubah stok di barang lainnya sesuai barang_id di request body
                         barang = _context.Barang.Find(peminjaman.Barang_Id);
-                        barang.Stok += riwayatPeminjaman.Jumlah;
+
+                        if (barang.Stok < peminjaman.Jumlah)
+                        {
+                            return 0;
+                        }
+
+                        barang.Stok -= peminjaman.Jumlah;
                         _context.Barang.Update(barang);
                         result += _context.SaveChanges();
+
+                        //Ubah id_barang sesuai input
+                        riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
                     }
                     //Jika mengubah barang dan jumlah yg dipinjam
                     else if (riwayatPeminjaman.Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
                     {
-                        riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
-
-                        var barang = _context.Barang.Find(peminjaman.Barang_Id);
+                        
+                        //Barang lama
+                        var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
                         //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                         barang.Stok += riwayatPeminjaman.Jumlah;
                         _context.Barang.Update(barang);
                         result += _context.SaveChanges();
-                        //Ubah stok di barang lainnya sesuai barang_id di request body
+
                         barang = _context.Barang.Find(peminjaman.Barang_Id);
-                        barang.Stok += peminjaman.Jumlah;
+                        if (barang.Stok < peminjaman.Jumlah)
+                        {
+                            return 0;
+                        }
+
+                        //Ubah stok di barang lainnya sesuai barang_id di request body
+                        barang.Stok -= peminjaman.Jumlah;
                         _context.Barang.Update(barang);
                         result += _context.SaveChanges();
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
+                        riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
                         riwayatPeminjaman.Jumlah = peminjaman.Jumlah;
                     }
-                    else if (peminjaman.Barang_Id == peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
+                    //Jika barang tetap, tetapi jumlahnya berubah
+                    else if (riwayatPeminjaman.Barang_Id == peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
                     {
+                        var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
+
+                        //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
+                        barang.Stok += riwayatPeminjaman.Jumlah;
+                        _context.Barang.Update(barang);
+                        result += _context.SaveChanges();
+
+
+                        if (barang.Stok < peminjaman.Jumlah)
+                        {
+                            return 0;
+                        }
+
+                        //Ubah stok di barang lainnya sesuai barang_id di request body                       
+                        barang.Stok -= peminjaman.Jumlah;
+                        _context.Barang.Update(barang);
+                        result += _context.SaveChanges();
+                       
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
                         riwayatPeminjaman.Jumlah = peminjaman.Jumlah;
                     }
