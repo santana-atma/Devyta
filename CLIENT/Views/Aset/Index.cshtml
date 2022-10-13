@@ -4,42 +4,45 @@
     Layout = "_AdminTemplate";
 }
 
+<input type="hidden" id="role" value="@ViewData["sessionRole"]" />
 <div class="card shadow">
     <div class="card-body">
         <h1>List Aset</h1>
-        <p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-                Tambah Aset
-            </button>
-        </p>
-
-        @*table*@
+        @if (@ViewData["sessionRole"] != null && @ViewData["sessionRole"].ToString() == "Admin")
+        { 
+            <p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    Tambah Aset
+                </button>
+            </p>
+        }
+            @*table*@
         <div class="table-responsive">
             <table class="table" id="table_aset">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Nama Aset
-                    </th>
-                    <th>
-                        Stok
-                    </th>
-                    <th>
-                        Satuan
-                    </th>
-                    <th>
-                        Aksi
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Nama Aset
+                        </th>
+                        <th>
+                            Stok
+                        </th>
+                        <th>
+                            Satuan
+                        </th>
+                        <th>
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -65,7 +68,7 @@
                     <div class="form-group">
                         <label for="satuan">Satuan</label>
                         <input type="text" class="form-control" id="satuan">
-                        <span class="text-danger text-sm-left" id="errorNama"></span>
+                        <span class="text-danger text-sm-left" id="errorSatuan"></span>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
                 </form>
