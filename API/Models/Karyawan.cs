@@ -14,5 +14,7 @@ namespace API.Models
         public string Alamat { get; set; }
         public string Email { get; set; }
         public string Telp { get; set; }
+        public string Departemen { get; set; }
+        public string Divisi { get; set; }
     }
 }

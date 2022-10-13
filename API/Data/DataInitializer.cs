@@ -30,6 +30,10 @@ namespace API.Data
                     {
                         Nama = "Staff"
                     });
+                    myContext.Role.Add(new Role()
+                    {
+                        Nama = "Karyawan"
+                    });
                     myContext.SaveChanges();
                 }
                 //Karyawan

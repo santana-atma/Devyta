@@ -72,7 +72,7 @@ namespace API.Controllers
         [HttpGet("~/api/karyawan/{id:int}")]
         public IActionResult Get(int id)
         {
-            var data = accountRepository.Get();
+            var data = accountRepository.Get(id);
             return Ok(new { message = "sukses mendapatkan akun !", statusCode = 201, data = data });
         }
 
