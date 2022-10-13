@@ -214,6 +214,12 @@ function Detail(id)
         $("#id_Aset").html(data.barang.id)
         $("#namaAset").html(data.barang.nama)
         $("#stokAset").html(data.barang.stok)
+        let totalAset = 0;
+        data.riwayat_Pengadaan.map(x => {
+
+            totalAset += x.jumlah; 
+        })
+        $("#totalAset").html(totalAset);
     }).fail((error) => {
         console.log(error);
     })
@@ -259,6 +265,8 @@ function Detail(id)
             },
         ]
     });
+
+    
 }
 
 function formatRupiah(price) {
