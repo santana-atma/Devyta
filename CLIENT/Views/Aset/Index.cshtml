@@ -1,13 +1,21 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "_AdminTemplate";
+    if(ViewData["sessionRole"].ToString() == "Admin")
+    {
+        Layout = "_AdminTemplate";
+
+    }
+    else
+    {
+        Layout = "_StaffTemplate";
+    }
 }
 
 <input type="hidden" id="role" value="@ViewData["sessionRole"]" />
 <div class="card shadow">
     <div class="card-body">
-        <h1>List Aset</h1>
+        <h1>Aset</h1>
         @if (@ViewData["sessionRole"] != null && @ViewData["sessionRole"].ToString() == "Admin")
         { 
             <p>
@@ -22,9 +30,6 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>
-                            Id
-                        </th>
                         <th>
                             Nama Aset
                         </th>
@@ -70,11 +75,11 @@
                         <input type="text" class="form-control" id="satuan">
                         <span class="text-danger text-sm-left" id="errorSatuan"></span>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
             </div>
         </div>
     </div>
@@ -100,7 +105,7 @@
                     <div class="col">
                         <p id="id_Aset"></p>
                         <p id="namaAset"></p>
-                        <p id="stokAset">0</p>
+                        <p><span id="stokAset">0</span><span>/</span><span id="totalAset">0</span></p>
                     </div>
                 </div>
                 <div class="row">
@@ -130,7 +135,29 @@
         </div>
     </div>
 </div>
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
 
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+</style>
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

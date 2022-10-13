@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221010061050_re-init")]
-    partial class reinit
+    [Migration("20221013161259_Re-Init")]
+    partial class ReInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,9 @@ namespace API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Alamat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Departemen")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
