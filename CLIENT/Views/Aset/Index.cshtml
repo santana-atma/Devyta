@@ -23,9 +23,6 @@
                     <tr>
                         <th>No</th>
                         <th>
-                            Id
-                        </th>
-                        <th>
                             Nama Aset
                         </th>
                         <th>
@@ -70,11 +67,11 @@
                         <input type="text" class="form-control" id="satuan">
                         <span class="text-danger text-sm-left" id="errorSatuan"></span>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="Insert()">Submit</button>
             </div>
         </div>
     </div>
@@ -130,7 +127,29 @@
         </div>
     </div>
 </div>
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
 
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+</style>
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

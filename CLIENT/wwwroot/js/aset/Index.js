@@ -18,9 +18,6 @@ $(document).ready(function () {
                 }
             },
             {
-                data: "id"
-            },
-            {
                 data: "nama"
             },
             {
@@ -157,8 +154,8 @@ function Edit(id)
     }).done((result) => {
         let { data } = result
         $("#idAset").val(id)
-        $("#nama").val(data.nama)
-        $("#satuan").val(data.satuan)
+        $("#nama").val(data.barang.nama)
+        $("#satuan").val(data.barang.satuan)
       console.log(result)
     }).fail((error) => {
        
