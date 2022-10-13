@@ -11,7 +11,7 @@ namespace CLIENT.Controllers
     {
         public IActionResult Index()
         {
-            var role =HttpContext.Session.GetString("Role");
+            var role = HttpContext.Session.GetString("Role");
             var UserId = HttpContext.Session.GetString("UserId");
             if (role != null && (role.Equals("Admin") || role.Equals("Staff")))
             {
@@ -21,7 +21,6 @@ namespace CLIENT.Controllers
 
             }
             return RedirectToAction("Unauthorized", "Error");
-            return View();
         }
     }
 }
