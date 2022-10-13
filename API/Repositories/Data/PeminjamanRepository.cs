@@ -154,6 +154,12 @@ namespace API.Repositories.Data
                     
                     if(peminjaman.Status=="KEMBALI" && peminjaman.Status != riwayatPeminjaman.Status)
                     {
+                        var barang = _context.Barang.Find(peminjaman.Barang_Id);
+
+                        //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
+                        barang.Stok += riwayatPeminjaman.Jumlah;
+                        _context.Barang.Update(barang);
+                        result += _context.SaveChanges();
                         riwayatPeminjaman.Status = peminjaman.Status;
                     }
 

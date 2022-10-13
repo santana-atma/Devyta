@@ -15065,7 +15065,7 @@ a.close.disabled {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 0rem 0rem !important;
   border-bottom: 1px solid #CED4DA;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
@@ -23770,7 +23770,7 @@ dl li {
 }
 
 .modal .modal-dialog .modal-content .modal-header {
-  padding: 25px 26px;
+  padding: 25px 26px 5px 26px !important;
 }
 
 .modal .modal-dialog .modal-content .modal-header .close span {
@@ -23780,7 +23780,7 @@ dl li {
 }
 
 .modal .modal-dialog .modal-content .modal-body {
-  padding: 35px 26px;
+  padding: 10px 26px !important;
 }
 
 .modal .modal-dialog .modal-content .modal-footer {
