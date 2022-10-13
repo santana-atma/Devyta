@@ -144,9 +144,9 @@ namespace API.Repositories.Data
                     //Jika mengubah barang dan jumlah yg dipinjam
                     else if (riwayatPeminjaman.Barang_Id != peminjaman.Barang_Id && riwayatPeminjaman.Jumlah != peminjaman.Jumlah)
                     {
-                        riwayatPeminjaman.Barang_Id = peminjaman.Barang_Id;
+                        
 
-                        var barang = _context.Barang.Find(peminjaman.Barang_Id);
+                        var barang = _context.Barang.Find(riwayatPeminjaman.Barang_Id);
 
                         //Kembalikan stok di Tb Barang sesuai jumlah yg dipinjam sebelumnya
                         barang.Stok += riwayatPeminjaman.Jumlah;
@@ -160,7 +160,7 @@ namespace API.Repositories.Data
                         }
 
                         //Ubah stok di barang lainnya sesuai barang_id di request body
-                        barang.Stok += peminjaman.Jumlah;
+                        barang.Stok -= peminjaman.Jumlah;
                         _context.Barang.Update(barang);
                         result += _context.SaveChanges();
                         //Ubah jumlah di riwayatPeminjaman sesuai jumlah terbaru di request body
