@@ -180,19 +180,44 @@ function Selesai(id) {
                 type: "GET",
                 contentType: "application/json;charset=utf-8"
             }).done((result) => {
-                let { data } = result
+                /*let { data } = result*/
 
-                $("#id_perbaikan").val(id);
-                $("#barang_id").val(data.barang_Id);
-                $("#karyawan_id").val(data.karyawan_Id);
-                $("#keterangan").val(data.keterangan);
-                $("#tanggal_terima").val(new Date(data.tanggal_Terima).toISOString().substring(0, 10));
-                $("#tanggal_selesai").val(new Date(data.tanggal_Terima).toISOString().substring(0, 10));
-                $("#biaya").val(data.biaya);
-                $("#jumlah").val(data.jumlah);
-                $("#status").val("SELESAI");
-                console.log(result);
-                Update();
+                //$("#id_perbaikan").val(id);
+                //$("#barang_id").val(data.barang_Id);
+                //$("#karyawan_id").val(data.karyawan_Id);
+                //$("#keterangan").val(data.keterangan);
+                //$("#tanggal_terima").val(new Date(data.tanggal_Terima).toISOString().substring(0, 10));
+                //$("#tanggal_selesai").val(new Date(data.tanggal_Terima).toISOString().substring(0, 10));
+                //$("#biaya").val(data.biaya);
+                //$("#jumlah").val(data.jumlah);
+                //$("#status").val("SELESAI");
+                //console.log(result);
+                //Update();
+
+                let { data } = result
+                let req = {
+                    barang_Id: data.barang_Id,
+                    karyawan_Id: data.karyawan_Id,
+                    keterangan: data.keterangan,
+                    tanggal_Terima: new Date(data.tanggal_Terima).toISOString().substring(0, 10),
+                    tanggal_Selesai: new Date(data.tanggal_Selesai).toISOString().substring(0, 10),
+                    jumlah: parseInt(data.jumlah),
+                    status: "SELESAI",
+                    biaya: data.biaya
+                }
+
+                //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+                $.ajax({
+                    url: baseUrl + `/${id}`,
+                    type: "PUT",
+                    data: JSON.stringify(req), //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+                    contentType: "application/json;charset=utf-8"
+                }).done((result) => {
+                    console.log(result);
+                    table.ajax.reload();
+                }).fail((error) => {
+                    console.log(error);
+                })
             }).fail((error) => {
                 console.log(error);
             })
