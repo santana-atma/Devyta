@@ -15,38 +15,40 @@
         </p>
 
         @*table*@
-        <table class="table" id="table_peminjaman">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>
-                        Aset
-                    </th>
-                    <th>
-                        Peminjam
-                    </th>
-                    <th>
-                        Tanggal Pinjam
-                    </th>
-                    <th>
-                        Tanggal Kembali
-                    </th>
-                    <th>
-                        Jumlah
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Aksi
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table" id="table_peminjaman" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>
+                            Aset
+                        </th>
+                        <th>
+                            Peminjam
+                        </th>
+                        <th>
+                            Tanggal Pinjam
+                        </th>
+                        <th>
+                            Tanggal Kembali
+                        </th>
+                        <th>
+                            Jumlah
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    </div>
 
 
 @*modal*@
@@ -96,6 +98,30 @@
         </div>
     </div>
 </div>
+
+<style>
+    .btn i {
+        margin-right: 0px !important;
+    }
+
+    th:nth-child(2n) {
+        background: #6563c9 !important;
+        color: #e3e8fa !important;
+    }
+
+    th:nth-child(2n-1) {
+        background: #4b49ac !important;
+        color: #e3e8fa !important;
+    }
+
+    td:nth-child(2n-1) {
+        background: #e3e8fa !important;
+    }
+
+    th, td {
+        text-align: center !important;
+    }
+</style>
 
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>

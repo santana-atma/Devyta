@@ -50,6 +50,10 @@ namespace API.Repositories.Data
                     var isExist = _context.Barang.Find(peminjaman.Barang_Id);
                     if (isExist != null)
                     {
+                        if (isExist.Stok < peminjaman.Jumlah)
+                        {
+                            return 0;
+                        }
                         isExist.Stok = isExist.Stok - peminjaman.Jumlah;
                         _context.Barang.Update(isExist);
                         result += _context.SaveChanges();
