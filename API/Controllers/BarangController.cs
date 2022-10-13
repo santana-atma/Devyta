@@ -46,6 +46,10 @@ namespace API.Controllers
         public IActionResult Post(BarangVM barang)
         {
             var result = barangRepository.Post(barang);
+            if (result == -1)
+            {
+                return BadRequest(new { statusCode = 400, message = "Nama aset harus unik" });
+            }
             if (result > 0)
                 return Ok(new { statusCode = 200, message = "Barang berhasil ditambah" });
             return BadRequest(new { statusCode = 400, message = "Barang gagal ditambah" });
@@ -55,6 +59,7 @@ namespace API.Controllers
         public IActionResult Put(int id, BarangVM barang)
         {
             var result = barangRepository.Put(id,barang);
+          
             if (result > 0)
                 return Ok(new { statusCode = 200, message = "Barang berhasil diubah" });
             return BadRequest(new { statusCode = 400, message = "Barang gagal diubah" });

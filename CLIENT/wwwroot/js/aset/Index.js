@@ -103,7 +103,7 @@ function Insert() {
                 //alert pemberitahuan jika gagal
                 Swal.fire(
                     'Gagal',
-                    'Aset Gagal ditambah',
+                    error.responseJSON.message,
                     'error'
                 )
                 console.log(error);
