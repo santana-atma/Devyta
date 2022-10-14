@@ -4,9 +4,7 @@
     }).done((result) => {
         test = "";
         $.each(result.data, function (key, val) {
-            if (val.role == "Admin" || val.role == "Staff") {
-                return;
-            }
+
             let deletebtn = `<button class="btn btn-danger" onClick="confirmDelete(${val.id})"><i class="fas fa-trash"></i></button>`;
             let editbtn = `<button class="btn btn-primary" onClick="" data-toggle="modal" data-target="#editusermodal"><i class="fas fa-edit"></i></button>`;
             test += `
@@ -16,7 +14,7 @@
             <td>${val.email}</td>
             <td>${val.departemen}</td>
             <td>${val.role}</td>
-            <td>${val.role == "Admin" || val.role == "Staff" ? "" : deletebtn }</td>
+            <td>${val.role != "Karyawan" ? "" : deletebtn }</td>
 
         </tr>`;
             $("#userData").html(test);
